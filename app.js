@@ -1,12 +1,17 @@
-require('dotenv').config()    // dotenv for setting environment variables in .env
-require('./database/connect') // mongoose database connection
+const dotenv           = require('dotenv')
 const express          = require('express')
-const app              = express()
 const helmet           = require('helmet')
 const bodyParser       = require('body-parser')
-// TODO: middleware for parsing response bodies
-const expressSanitizer = require('express-sanitizer')
-const serverPort       = process.env.PORT || 3000
+const expressSanitizer = require('express-sanitizer') // TODO: middleware for parsing response bodies
+// const routes           = require('./routes')
+const PORT             = process.env.PORT || 3000
+const envVarValidator  = require('./helpers/envVarValidator')
+
+const app = express()
+
+// validate environment variables
+dotenv.config()
+const envVarsValid = envVarValidator.validate()
 
 // Application middleware
 app.use(bodyParser.json());
@@ -15,5 +20,11 @@ app.use(helmet())
 app.use(expressSanitizer())
 
 // API routes
+// app.use(...routes)
 
-app.listen(serverPort, console.log(`The server is listening in port ${serverPort}`))
+// connect to database and start listening only if the environment is configured correctly
+if(envVarsValid) {
+  // mongoose database connection
+  require('./database/connect')
+  app.listen(PORT, console.log(`The server is listening in port ${PORT}`))
+}
