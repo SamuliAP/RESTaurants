@@ -29,8 +29,13 @@ const userSchema = mongoose.Schema({
   }
 }, { 
   timestamps : {},
-  toJSON : { virtuals: true }
-}) 
+  toJSON : { 
+    virtuals: true,
+    transform: function (doc, ret) {
+      delete ret.password;
+    }
+  }
+})
 
 userSchema.virtual('links').get(function() {
   return {
