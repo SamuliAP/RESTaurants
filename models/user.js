@@ -1,7 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose  = require('mongoose')
 
-// A regular expression for email validation
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+/* Using validator instead of e.g. express-validator as input validation for
+ * easier consistent error message formatting. This also
+ * enables us doing all our validation in the same spot without
+ * having to do it manually (e.g. checking whether email already exist in db).
+ */
+const validator = require('validator')
 
 const userSchema = mongoose.Schema({
   email: {
@@ -9,7 +13,7 @@ const userSchema = mongoose.Schema({
     required : true,
     unique   : true,
     validate : {
-      validator : val => emailRegex.test(val),
+      validator : val => validator.isEmail(val),
       message   : '{VALUE} is not a valid email address'
     }
   },
@@ -17,7 +21,7 @@ const userSchema = mongoose.Schema({
     type     : String,
     required : true,
     validate : {
-      validator : val => val.length >= 6,
+      validator : val => validator.isLength(val, { min: 6 }),
       message   : 'Password needs to be at least 6 characters long'
     }
   },
