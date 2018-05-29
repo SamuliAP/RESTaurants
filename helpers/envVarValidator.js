@@ -2,7 +2,7 @@ getEmpty = required => {
   return required.filter(val => !val.value)
 }
 
-module.exports.validate = () => {
+exports.validate = () => {
 
   // always required environment variables
   let required = [
