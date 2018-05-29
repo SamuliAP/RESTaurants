@@ -1,14 +1,47 @@
 const express = require('express')
-const router = express.Router()
-const { usersController } = require('../controllers')
+const router  = express.Router()
 
-router.get('/api/users', usersController.getUsers)
-router.get('/api/users/:id', usersController.getUser)
-router.post('/api/users', usersController.createUser)
-router.put('/api/users/:id', usersController.updateUser) // ONLY ADMIN
-router.patch('/api/users/:id/email',  usersController.updateUserEmail)
-router.patch('/api/users/:id/password',  usersController.updateUserPassword)
-router.patch('/api/users/:id/role',  usersController.updateUserRole) // ONLY ADMIN
-router.delete('/api/users/:id', usersController.deleteUser)
+const { usersController } = require('../controllers')
+const { xssMiddleware }   = require('../middleware')
+
+router.get('/api/users',
+  usersController.getUsers
+)
+
+router.get('/api/users/:id',
+  xssMiddleware.sanitizeURI,
+  usersController.getUser
+)
+
+router.post('/api/users', 
+  usersController.createUser
+)
+
+// ONLY ADMIN
+router.put('/api/users/:id', 
+  xssMiddleware.sanitizeURI,
+  usersController.updateUser
+)
+
+router.patch('/api/users/:id/email',  
+  xssMiddleware.sanitizeURI,
+  usersController.updateUserEmail
+)
+
+router.patch('/api/users/:id/password',  
+  xssMiddleware.sanitizeURI,
+  usersController.updateUserPassword
+)
+
+// ONLY ADMIN
+router.patch('/api/users/:id/role',  
+  xssMiddleware.sanitizeURI,
+  usersController.updateUserRole
+)
+
+router.delete('/api/users/:id', 
+  xssMiddleware.sanitizeURI,
+  usersController.deleteUser
+)
 
 module.exports = router
