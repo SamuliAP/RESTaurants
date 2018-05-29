@@ -21,10 +21,9 @@ exports.getUser = (req, res, next) => {
 
 exports.createUser = (req, res, next) => {
   User.create({
-    // concat and return objects only if found in req.body
-    ...req.body.email    && { email    : req.body.email    },
-    ...req.body.password && { password : req.body.password },
-    ...req.body.role     && { role     : req.body.role     },
+    email    : req.body.email,
+    password : req.body.password,
+    role     : req.body.role
   }, (err, data) => {
     if(err)              { res.status(400).send(errors.mongooseError(err))  }
     else if(!data || 
@@ -36,10 +35,54 @@ exports.createUser = (req, res, next) => {
 exports.updateUser = (req, res, next) => {
   
   User.findByIdAndUpdate(req.params.id, {
-    // concat and return objects only if found in req.body
-    ...req.body.email    && { email    : req.body.email    },
-    ...req.body.password && { password : req.body.password },
-    ...req.body.role     && { role     : req.body.role     },
+    email    : req.body.email,
+    password : req.body.password,
+    role     : req.body.role
+  }, { 
+    new: true,
+    runValidators: true 
+  }, (err, data) => {
+    if(err)        { res.status(400).send(errors.mongooseError(err))  }
+    else if(!data) { res.status(404).send(errors.notFoundError())     } 
+    else           { res.status(200).send({ data: data })             }
+  })
+}
+
+exports.updateUserEmail = (req, res, next) => {
+  
+  User.findByIdAndUpdate(req.params.id, {
+    email: req.body.email
+  }, { 
+    new: true,
+    runValidators: true 
+  }, (err, data) => {
+    if(err)        { res.status(400).send(errors.mongooseError(err))  }
+    else if(!data) { res.status(404).send(errors.notFoundError())     } 
+    else           { res.status(200).send({ data: data })             }
+  })
+}
+
+exports.updateUserPassword = (req, res, next) => {
+  
+  User.findByIdAndUpdate(req.params.id, {
+    password: req.body.password
+  }, { 
+    new: true,
+    runValidators: true 
+  }, (err, data) => {
+    if(err)        { res.status(400).send(errors.mongooseError(err))  }
+    else if(!data) { res.status(404).send(errors.notFoundError())     } 
+    else           { res.status(200).send({ data: data })             }
+  })
+}
+
+exports.updateUserRole = (req, res, next) => {
+  
+  User.findByIdAndUpdate(req.params.id, {
+    role: req.body.role
+  }, { 
+    new: true,
+    runValidators: true 
   }, (err, data) => {
     if(err)        { res.status(400).send(errors.mongooseError(err))  }
     else if(!data) { res.status(404).send(errors.notFoundError())     } 
