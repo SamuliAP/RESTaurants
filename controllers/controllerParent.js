@@ -21,7 +21,7 @@ exports.findById = Model => (req, res, next) => {
 }
 
 exports.create = (Model, props) => (req, res, next) => {
-
+  
   let params = {}
   for(key of props) {
     params[key] = req.body[key]

@@ -15,7 +15,10 @@ const csurf            = require('csurf')
 const routes          = require('./routes')
 const mongo           = require('./database')
 const envVarValidator = require('./utils/envVarValidator')
-const {xssMiddleware} = require('./middleware')
+const {
+  xssMiddleware,
+  noSqlMiddleware
+} = require('./middleware')
 
 // Application port
 const PORT = process.env.PORT || 3000
@@ -51,6 +54,7 @@ app.use(session(sess))
 // Custom application level middleware
 // ------------------------------------
 app.use(xssMiddleware.sanitizeBody)
+app.use(noSqlMiddleware.sanitizeBody)
 
 // ------------------------------------
 // API routes

@@ -3,7 +3,8 @@ const router  = express.Router()
 
 const { usersController } = require('../controllers')
 const { 
-  xssMiddleware, 
+  xssMiddleware,
+  noSqlMiddleware,
   authMiddleware
 } = require('../middleware')
 
@@ -11,6 +12,7 @@ const {
 
 // sanitize all URI parameters for XSS-protection 
 router.use('/api/users/:id' , xssMiddleware.sanitizeURI)
+router.use('/api/users/:id' , noSqlMiddleware.sanitizeURI)
 
 // authenticate every users route
 router.use('/api/users'     , authMiddleware.authenticate)
