@@ -7,6 +7,9 @@ const mongoose  = require('mongoose')
  */
 const validator = require('validator')
 
+// bcrypt for password hashing
+var bcrypt = require('bcryptjs');
+
 const userSchema = mongoose.Schema({
   email: {
     type     : String,
@@ -35,12 +38,40 @@ const userSchema = mongoose.Schema({
   timestamps : {},
   toJSON : { 
     virtuals: true,
-    transform: function (doc, ret) {
-      delete ret.password;
-    }
+    // transform: function (doc, ret) {
+    //   delete ret.password;
+    // }
   }
 })
 
+// hash the password before saving
+userSchema.pre('save', function(next) {
+  var user = this
+  
+  bcrypt.hash(user.password, 10, function(err, hash) {
+    if(err) {
+      return next(err)
+    } 
+    user.password = hash
+    next()
+  })
+})
+
+// hash the password before updating
+userSchema.pre('findOneAndUpdate', function(next) {
+  var user = this
+  var pass = user._update.password
+  
+  bcrypt.hash(pass, 10, function(err, hash) {
+    if(err) {
+      return next(err)
+    } 
+    user._update.password = hash
+    next()
+  })
+})
+
+// for HATEOAS
 userSchema.virtual('links').get(function() {
   return {
     self : `/api/users/${this.id}`,
