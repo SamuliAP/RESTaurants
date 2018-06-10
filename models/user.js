@@ -3,7 +3,7 @@ const mongoose  = require('mongoose')
 /* Using validator instead of e.g. express-validator as input validation for
  * easier consistent error message formatting. This also
  * enables us doing all our validation in the same spot without
- * having to do it manually (e.g. checking whether email already exist in db).
+ * having to do it manually in a middleware (e.g. checking whether email already exists in db).
  */
 const validator = require('validator')
 

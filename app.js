@@ -14,11 +14,13 @@ const app = express()
 // enable .env
 dotenv.config()
 
-// Application middleware
+// Application level middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(helmet())
 app.use(expressSanitizer())
+
+// Custom application level middleware
 app.use(xssMiddleware.sanitizeBody)
 
 // API routes

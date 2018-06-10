@@ -10,9 +10,7 @@ exports.sanitizeURI = (req, res, next) => {
 
 // this can be used as a global middleware
 exports.sanitizeBody = (req, res, next) => {
-  console.log(req.body)
   req.body = sanitizeObject(req, req.body)
-  console.log(req.body)
   next()
 }
 
