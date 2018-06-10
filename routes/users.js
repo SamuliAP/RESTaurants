@@ -7,46 +7,42 @@ const {
   authMiddleware
 } = require('../middleware')
 
-router.use('/api/users', authMiddleware.authenticate)
+// ------------------------------------
 
-router.get('/api/users',
-  usersController.getUsers
-)
+// sanitize all URI parameters for XSS-protection 
+router.use('/api/users/:id' , xssMiddleware.sanitizeURI)
 
-router.get('/api/users/:id',
-  xssMiddleware.sanitizeURI,
-  usersController.getUser
-)
+// authenticate every users route
+router.use('/api/users'     , authMiddleware.authenticate)
 
-router.post('/api/users', 
-  usersController.createUser
-)
+// ------------------------------------
 
-// ONLY ADMIN
-router.put('/api/users/:id', 
-  xssMiddleware.sanitizeURI,
-  usersController.updateUser
-)
+// GET all users
+router.get('/api/users', usersController.getUsers)
 
-router.patch('/api/users/:id/email',  
-  xssMiddleware.sanitizeURI,
-  usersController.updateUserEmail
-)
+// GET user by id
+router.get('/api/users/:id', usersController.getUser)
 
-router.patch('/api/users/:id/password',  
-  xssMiddleware.sanitizeURI,
-  usersController.updateUserPassword
-)
+// POST a new user
+router.post('/api/users', usersController.createUser)
 
 // ONLY ADMIN
-router.patch('/api/users/:id/role',  
-  xssMiddleware.sanitizeURI,
-  usersController.updateUserRole
-)
+// PUT (update) a user completely
+router.put('/api/users/:id', usersController.updateUser)
 
-router.delete('/api/users/:id', 
-  xssMiddleware.sanitizeURI,
-  usersController.deleteUser
-)
+// PATCH (update) a users email
+router.patch('/api/users/:id/email',usersController.updateUserEmail)
+
+// PATCH (update) a users password
+router.patch('/api/users/:id/password',usersController.updateUserPassword)
+
+// ONLY ADMIN
+// PATCH (update) a users role
+router.patch('/api/users/:id/role',usersController.updateUserRole)
+
+// DELETE a user
+router.delete('/api/users/:id',usersController.deleteUser)
+
+// ------------------------------------
 
 module.exports = router

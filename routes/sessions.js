@@ -2,16 +2,16 @@ const express = require('express')
 const router  = express.Router()
 
 const { sessionsController } = require('../controllers')
-const { xssMiddleware }      = require('../middleware')
+const { authMiddleware     } = require('../middleware')
 
+// ------------------------------------
 
-router.post('/api/session',
-  sessionsController.createSession
-)
+// POST a new session (log in)
+router.post('/api/session', sessionsController.createSession)
 
-router.delete('/api/session/:id',
-  xssMiddleware.sanitizeURI,
-  sessionsController.deleteSession
-)
+// DELETE an existing user session (log out)
+router.delete('/api/session', authMiddleware.authenticate, sessionsController.deleteSession)
+
+// ------------------------------------
 
 module.exports = router
