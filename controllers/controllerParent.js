@@ -1,19 +1,22 @@
-const errors   = require('./utils/errors')
+// Parent controller for abstraction, 
+// should be used for basic CRUD -operations via database model injection
+
+const { error, success } = require('./responses')
 
 exports.findAll = Model => (req, res, next) => {
   Model.find({}, (err, data) => {
-    if(err)              { res.status(400).send(errors.mongooseError(err))  } 
+    if(err)              { return error.send(res, error.type.MONGOOSE, err) } 
     else if(!data || 
-      data.length === 0) { res.status(404).send(errors.notFoundError())     } 
-    else                 { res.status(200).send({ data: data })             }
+      data.length === 0) { return error.send(res, error.type.NOTFOUND) } 
+    else                 { return success.send(res, success.type.OK, data) }
   })
 }
 
 exports.findById = Model => (req, res, next) => {
   Model.findById(req.params.id, (err, data) => {
-    if(err)        { res.status(400).send(errors.mongooseError(err))  } 
-    else if(!data) { res.status(404).send(errors.notFoundError())     } 
-    else           { res.status(200).send({ data: data })             }
+    if(err)        { return error.send(res, error.type.MONGOOSE, err) } 
+    else if(!data) { return error.send(res, error.type.NOTFOUND) } 
+    else           { return success.send(res, success.type.OK, data) }
   })
 }
 
@@ -25,10 +28,10 @@ exports.create = (Model, props) => (req, res, next) => {
   }
 
   Model.create(params, (err, data) => {
-    if(err)              { res.status(400).send(errors.mongooseError(err))  }
+    if(err)              { return error.send(res, error.type.MONGOOSE, err) }
     else if(!data || 
-      data.length === 0) { res.status(500).send(errors.serverError())       }  
-    else                 { res.status(201).send({ data: data })             }
+      data.length === 0) { return error.send(res, error.type.SERVER) }  
+    else                 { return success.send(res, success.type.CREATED, data) }
   })
 }
 
@@ -43,16 +46,16 @@ exports.update = (Model, props) => (req, res, next) => {
     new: true,
     runValidators: true 
   }, (err, data) => {
-    if(err)        { res.status(400).send(errors.mongooseError(err))  }
-    else if(!data) { res.status(404).send(errors.notFoundError())     } 
-    else           { res.status(200).send({ data: data })             }
+    if(err)        { return error.send(res, error.type.MONGOOSE, err) }
+    else if(!data) { return error.send(res, error.type.NOTFOUND) } 
+    else           { return success.send(res, success.type.OK, data) }
   })
 }
 
 exports.delete = Model => (req, res, next) => {
   Model.findByIdAndRemove(req.params.id, (err, data) => {
-    if(err)        { res.status(400).send(errors.mongooseError(err))  }
-    else if(!data) { res.status(404).send(errors.notFoundError())     } 
-    else           { res.status(200).send({ data: data })             }
+    if(err)        { return error.send(res, error.type.MONGOOSE, err) }
+    else if(!data) { return error.send(res, error.type.NOTFOUND) } 
+    else           { return success.send(res, success.type.OK, data) }
   })
 }

@@ -2,7 +2,12 @@ const express = require('express')
 const router  = express.Router()
 
 const { usersController } = require('../controllers')
-const { xssMiddleware }   = require('../middleware')
+const { 
+  xssMiddleware, 
+  authMiddleware
+} = require('../middleware')
+
+router.use('/api/users', authMiddleware.authenticate)
 
 router.get('/api/users',
   usersController.getUsers

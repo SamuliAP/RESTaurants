@@ -38,9 +38,9 @@ const userSchema = mongoose.Schema({
   timestamps : {},
   toJSON : { 
     virtuals: true,
-    // transform: function (doc, ret) {
-    //   delete ret.password;
-    // }
+    transform: function (doc, ret) {
+      delete ret.password;
+    }
   }
 })
 
