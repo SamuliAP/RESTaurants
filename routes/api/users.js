@@ -6,7 +6,8 @@ const {
   xssMiddleware,
   noSqlMiddleware,
   authMiddleware,
-  permissionsMiddleware
+  permissionsMiddleware,
+  bodyManipulationMiddleware
 } = require('../../middleware')
 
 // ------------------------------------
@@ -34,8 +35,14 @@ router.get('/api/users/:id',
 )
 
 // POST a new user
-// TODO VAIN ADMIN VOI LUODA ADMINEJA
-router.post('/api/users', usersController.createUser)
+// NOTE: only admins can create admins and managers by design,
+// as we don't want to give manager permissions to everyone.
+// Removing the 'role' -property defaults it to the default role 
+// defined in the User model definition.
+router.post('/api/users',
+  bodyManipulationMiddleware.removeBodyPropertyIfNotAdmin('role'),
+  usersController.createUser
+)
 
 // PUT (update) a user completely
 // ADMIN ONLY

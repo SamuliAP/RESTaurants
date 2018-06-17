@@ -1,4 +1,5 @@
 const { error } = require('../controllers/responses')
+const { User }  = require('../models')
 
 // creates a new key-value property pair to request.body -object
 // NOTE: this middleware could also be done with less abstraction for the 
@@ -21,4 +22,22 @@ exports.newBodyProperty = (key, value, req, res, next) => {
   // create a new property with value
   req.body[key] = value
   return next()
+}
+
+// Remove a body property completely
+exports.removeBodyProperty = key => (req, res, next) => {
+  delete req.body[key]
+  return next()
+}
+
+// Remove a body property conditionally, if user is not admin
+exports.removeBodyPropertyIfNotAdmin = key => (req, res, next) => {
+  User.findById(req.session.user, (err, user) => {
+
+    if(err || !user || user.role !== 'admin') {
+      delete req.body[key] 
+    }
+    
+    return next()
+  })
 }
