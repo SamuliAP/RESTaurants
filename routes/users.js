@@ -29,7 +29,7 @@ router.get('/api/users',
 // ADMIN OR CURRENT USER ONLY
 router.get('/api/users/:id', 
   authMiddleware.authenticate, 
-  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.getUser
 )
 
@@ -48,7 +48,7 @@ router.put('/api/users/:id',
 // ADMIN OR CURRENT USER ONLY
 router.patch('/api/users/:id/email', 
   authMiddleware.authenticate, 
-  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.updateUserEmail
 )
 
@@ -56,7 +56,7 @@ router.patch('/api/users/:id/email',
 // ADMIN OR CURRENT USER ONLY
 router.patch('/api/users/:id/password', 
   authMiddleware.authenticate, 
-  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.updateUserPassword
 )
 
@@ -72,7 +72,7 @@ router.patch('/api/users/:id/role',
 // ADMIN OR CURRENT USER ONLY
 router.delete('/api/users/:id', 
   authMiddleware.authenticate, 
-  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.deleteUser
 )
 

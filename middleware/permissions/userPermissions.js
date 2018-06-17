@@ -21,7 +21,7 @@ exports.uriIdIsUser = (req, res, next) =>
 
 
 // Check whether URI parameter 'id' is the same as the current session user id OR current session user is admin
-exports.uriIdIsUserOrUserIsAdmin = (req, res, next) => 
+exports.IsAdminOrUriIdIsUser = (req, res, next) => 
   req.params.id === req.session.user
     ? next()
     : isAdmin(req, res, next)
