@@ -1,5 +1,5 @@
-const { User }  = '../models'
-const { error } = '../controllers/responses'
+const { User }  = require('../../models')
+const { error } = require('../../controllers/responses')
 
 // Check whether session user is admin
 exports.isAdmin = (req, res, next) => {

@@ -1,5 +1,5 @@
-const { User }  = '../models'
-const { error } = '../controllers/responses'
+const { User }  = require('../../models')
+const { error } = require('../../controllers/responses')
 
 // Check whether session user is Model owner, return error otherwise
 // NOTE: Model must have a field with key 'owner' 

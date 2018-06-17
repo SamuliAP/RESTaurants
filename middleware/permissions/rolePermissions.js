@@ -1,5 +1,5 @@
-const { User }  = '../models'
-const { error } = '../controllers/responses'
+const { User }  = require('../../models')
+const { error } = require('../../controllers/responses')
 
 // Check whether session user has role, return error otherwise
 exports.hasRole = role => (req, res, next) => {
