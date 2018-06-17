@@ -58,12 +58,9 @@ app.use(xssMiddleware.sanitizeBody)
 app.use(noSqlMiddleware.sanitizeBody)
 
 // ------------------------------------
-// API routes
+// API routes, registered in order of the routes -array
 // ------------------------------------
 app.use(...routes)
-
-// TODO: not found
-app.use('/', (req,res,next) => {res.send("notfound")})
 
 // ------------------------------------
 // connect to database and start listening only if the environment is configured correctly

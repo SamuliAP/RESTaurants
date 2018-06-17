@@ -1,15 +1,15 @@
 const express = require('express')
 const router  = express.Router()
 
-const { restaurantsController } = require('../controllers')
+const { restaurantsController } = require('../../controllers')
 const { 
   xssMiddleware,
   noSqlMiddleware,
   authMiddleware,
   bodyManipulationMiddleware,
   permissionsMiddleware
-} = require('../middleware')
-const { Restaurant } = require('../models')
+} = require('../../middleware')
+const { Restaurant } = require('../../models')
 
 // ------------------------------------
 

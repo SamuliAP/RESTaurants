@@ -1,13 +1,13 @@
 const express = require('express')
 const router  = express.Router()
 
-const { usersController } = require('../controllers')
+const { usersController } = require('../../controllers')
 const { 
   xssMiddleware,
   noSqlMiddleware,
   authMiddleware,
   permissionsMiddleware
-} = require('../middleware')
+} = require('../../middleware')
 
 // ------------------------------------
 
@@ -34,6 +34,7 @@ router.get('/api/users/:id',
 )
 
 // POST a new user
+// TODO VAIN ADMIN VOI LUODA ADMINEJA
 router.post('/api/users', usersController.createUser)
 
 // PUT (update) a user completely
