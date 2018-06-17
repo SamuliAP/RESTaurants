@@ -3,6 +3,7 @@
 
 const { error, success } = require('./responses')
 
+// Find all model documents
 exports.findAll = Model => (req, res, next) => {
   Model.find({}, (err, data) => {
     if(err)              { return error.send(res, error.type.MONGOOSE, err) } 
@@ -12,6 +13,7 @@ exports.findAll = Model => (req, res, next) => {
   })
 }
 
+// Find a model document by id fetched from the URI parameter "id"
 exports.findById = Model => (req, res, next) => {
   Model.findById(req.params.id, (err, data) => {
     if(err)        { return error.send(res, error.type.MONGOOSE, err) } 
@@ -20,6 +22,12 @@ exports.findById = Model => (req, res, next) => {
   })
 }
 
+// Create a model document
+// --
+// Parameters must be located in the request body
+// and listed in the 'props' -parameter as an array 
+// of object key strings,
+// e.g. ['param1', 'param2'...] -> request.body.param1 etc.
 exports.create = (Model, props) => (req, res, next) => {
   
   let params = {}
@@ -35,6 +43,12 @@ exports.create = (Model, props) => (req, res, next) => {
   })
 }
 
+// Update a model document
+// -- 
+// Parameters must be located in the request body
+// and listed in the 'props' -parameter as an array 
+// of object key strings, 
+// e.g. ['param1', 'param2'...] -> request.body.param1 etc.
 exports.update = (Model, props) => (req, res, next) => {
 
   let params = {}
@@ -52,6 +66,7 @@ exports.update = (Model, props) => (req, res, next) => {
   })
 }
 
+// Delete a model document by id fetched from the URI parameter "id"
 exports.delete = Model => (req, res, next) => {
   Model.findByIdAndRemove(req.params.id, (err, data) => {
     if(err)        { return error.send(res, error.type.MONGOOSE, err) }

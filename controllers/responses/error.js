@@ -72,6 +72,11 @@ exports.type = {
   }
 }
 
+// errObject example (both properties optional):
+// {
+//   message: "An error has happened", 
+//   type: "ErrorHappenedError"
+// }
 exports.send = (res, type, errObject = {}) => {
   message = type.message(errObject)
   code    = type.code

@@ -5,13 +5,13 @@
  */
 exports.sanitizeURI = sanitizer => (req, res, next) => {
   req.params = sanitizeObject(req, req.params, sanitizer)
-  next()
+  return next()
 }
 
 // this can be used as a global middleware
 exports.sanitizeBody = sanitizer => (req, res, next) => {
   req.body = sanitizeObject(req, req.body, sanitizer)
-  next()
+  return next()
 }
 
 // sanitizes all object properties and keys recursively
