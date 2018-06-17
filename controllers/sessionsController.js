@@ -19,6 +19,7 @@ exports.createSession = (req, res, next) => {
         return error.send(res, error.type.UNAUTHORIZED) 
       }
       req.session.authenticated = true
+      req.session.user = user.id
       return success.send(res, success.type.OK)
     })
   })
