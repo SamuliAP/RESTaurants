@@ -1,0 +1,10 @@
+const { Restaurant } = require('../models')
+const parent         = require('./controllerParent')
+
+exports.getRestaurants          = parent.findAll(Restaurant)
+exports.getRestaurant           = parent.findById(Restaurant)
+exports.createRestaurant        = parent.create(Restaurant, ['name', 'address', 'owner'])
+exports.updateRestaurant        = parent.update(Restaurant, ['name', 'address'])
+exports.updateRestaurantName    = parent.update(Restaurant, ['name'])
+exports.updateRestaurantAddress = parent.update(Restaurant, ['address'])
+exports.deleteRestaurant        = parent.delete(Restaurant)

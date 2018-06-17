@@ -33,6 +33,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(helmet())
 app.use(expressSanitizer())
+
 let sess = {
   secret: 'extremely secretive secret',
   resave: false,

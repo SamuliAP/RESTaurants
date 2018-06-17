@@ -1,5 +1,7 @@
-const User = require('./user')
+const User       = require('./user')
+const Restaurant = require('./restaurant')
 
 module.exports = { 
-  User
+  User,
+  Restaurant
 }

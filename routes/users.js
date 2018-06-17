@@ -5,7 +5,8 @@ const { usersController } = require('../controllers')
 const { 
   xssMiddleware,
   noSqlMiddleware,
-  authMiddleware
+  authMiddleware,
+  permissionsMiddleware
 } = require('../middleware')
 
 // ------------------------------------
@@ -17,49 +18,61 @@ router.use('/api/users/:id' , noSqlMiddleware.sanitizeURI)
 // ------------------------------------
 
 // GET all users
+// ADMIN ONLY
 router.get('/api/users', 
-  authMiddleware.authenticate, 
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdmin,
   usersController.getUsers
 )
 
 // GET user by id
+// ADMIN OR CURRENT USER ONLY
 router.get('/api/users/:id', 
   authMiddleware.authenticate, 
+  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
   usersController.getUser
 )
 
 // POST a new user
 router.post('/api/users', usersController.createUser)
 
-// ONLY ADMIN
 // PUT (update) a user completely
+// ADMIN ONLY
 router.put('/api/users/:id', 
-  authMiddleware.authenticate, 
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdmin,
   usersController.updateUser
 )
 
 // PATCH (update) a users email
+// ADMIN OR CURRENT USER ONLY
 router.patch('/api/users/:id/email', 
   authMiddleware.authenticate, 
+  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
   usersController.updateUserEmail
 )
 
 // PATCH (update) a users password
+// ADMIN OR CURRENT USER ONLY
 router.patch('/api/users/:id/password', 
   authMiddleware.authenticate, 
+  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
   usersController.updateUserPassword
 )
 
-// ONLY ADMIN
 // PATCH (update) a users role
+// ADMIN ONLY
 router.patch('/api/users/:id/role', 
-  authMiddleware.authenticate, 
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdmin,
   usersController.updateUserRole
 )
 
 // DELETE a user
+// ADMIN OR CURRENT USER ONLY
 router.delete('/api/users/:id', 
   authMiddleware.authenticate, 
+  permissionsMiddleware.uriIdIsUserOrUserIsAdmin,
   usersController.deleteUser
 )
 
