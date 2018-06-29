@@ -8,6 +8,7 @@ const bodyParser       = require('body-parser')
 const expressSanitizer = require('express-sanitizer')
 const session          = require('express-session')
 const csurf            = require('csurf')
+var hbs                = require('express-hbs');
 
 // ------------------------------------
 // Internal modules
@@ -27,6 +28,21 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 // ------------------------------------
+// View engine
+// ------------------------------------
+app.engine('hbs', hbs.express4({
+  partialsDir: __dirname + '/views/partials',
+  layoutsDir: __dirname + '/views/layouts',
+  defaultLayout: __dirname + '/views/layouts/layout.hbs'
+}));
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
+// serve assets for handlebars
+app.use(express.static(__dirname + '/public'));
+
+// ------------------------------------
 // Application level middleware
 // ------------------------------------
 app.use(bodyParser.json())
@@ -38,7 +54,9 @@ let sess = {
   secret: 'extremely secretive secret',
   resave: false,
   saveUninitialized: true,
-  maxAge: 1800000 // 30 minutes
+  cookie: {
+    maxAge: 1800000 // 30 minutes
+  }
 }
 
 // Use secure cookies if environment is set to production
@@ -60,7 +78,7 @@ app.use(noSqlMiddleware.sanitizeBody)
 // ------------------------------------
 // API routes, registered in order of the routes -array
 // ------------------------------------
-app.use(...routes)
+app.use(routes)
 
 // ------------------------------------
 // connect to database and start listening only if the environment is configured correctly

@@ -1,12 +1,12 @@
 const { User }  = require('../../models')
-const { error } = require('../../controllers/responses')
+const { error } = require('../../controllers/apiControllers/responses')
 
 // Check whether session user is admin
 exports.isAdmin = (req, res, next) => {
   User.findById(req.session.user, (err, user) => {
 
     if(err || !user || user.role !== 'admin') { 
-      return error.send(res, error.type.UNAUTHORIZED) 
+      return error.create(res, next, error.type.UNAUTHORIZED) 
     }
     
     return next()
@@ -17,7 +17,7 @@ exports.isAdmin = (req, res, next) => {
 exports.uriIdIsUser = (req, res, next) => 
   req.params.id === req.session.user
     ? next()
-    : error.send(res, error.type.UNAUTHORIZED) 
+    : error.create(res, next, error.type.UNAUTHORIZED) 
 
 
 // Check whether URI parameter 'id' is the same as the current session user id OR current session user is admin

@@ -1,12 +1,12 @@
 const { User }  = require('../../models')
-const { error } = require('../../controllers/responses')
+const { error } = require('../../controllers/apiControllers/responses')
 
 // Check whether session user has role, return error otherwise
 exports.hasRole = role => (req, res, next) => {
   User.findById(req.session.user, (err, user) => {
 
     if(err || !user || user.role !== role) { 
-      return error.send(res, error.type.UNAUTHORIZED) 
+      return error.create(res, next, error.type.UNAUTHORIZED) 
     }
     
     return next()
@@ -18,7 +18,7 @@ exports.isAdminOrHasRole = role => (req, res, next) => {
   User.findById(req.session.user, (err, user) => {
 
     if(err || !user || (user.role !== role && user.role !== 'admin')) { 
-      return error.send(res, error.type.UNAUTHORIZED) 
+      return error.create(res, next, error.type.UNAUTHORIZED) 
     }
     
     return next()

@@ -1,5 +1,5 @@
 const { User }  = require('../../models')
-const { error } = require('../../controllers/responses')
+const { error } = require('../../controllers/apiControllers/responses')
 
 // Check whether session user is Model owner, return error otherwise
 // NOTE: Model must have a field with key 'owner' 
@@ -7,7 +7,7 @@ exports.isOwner = Model => (req, res, next) => {
   Model.findOne({ owner: req.session.user }, (err, doc) => {
 
     if(err || !doc) {
-      return error.send(res, error.type.UNAUTHORIZED) 
+      return error.create(res, next, error.type.UNAUTHORIZED) 
     }
 
     return next()

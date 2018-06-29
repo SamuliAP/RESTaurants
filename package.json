@@ -1,7 +1,7 @@
 {
-  "name": "pizzeroo_www_coursework",
+  "name": "RESTaurants",
   "version": "1.0.0",
-  "description": "",
+  "description": "A RESTful restaurant service project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,11 +14,13 @@
     "csurf": "^1.9.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-hbs": "^1.0.4",
     "express-sanitizer": "^1.0.4",
     "express-session": "^1.15.6",
     "helmet": "^3.12.1",
     "mongo-sanitize": "^1.0.0",
     "mongoose": "^5.1.2",
+    "mongoose-unique-validator": "^2.0.1",
     "validator": "^10.2.0"
   }
 }

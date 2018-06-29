@@ -1,4 +1,4 @@
-const { error } = require('../controllers/responses')
+const { error } = require('../controllers/apiControllers/responses')
 const { User }  = require('../models')
 
 // creates a new key-value property pair to request.body -object
@@ -14,7 +14,7 @@ exports.newBodyProperty = (key, value, req, res, next) => {
    * in case of faulty API documentation.
    */
   if(req.body[key] !== undefined) {
-    return error.send(res, error.type.REQUEST, {
+    return error.create(res, next, error.type.REQUEST, {
       message: `Overwrite error on request body property: ${key}`
     });
   }

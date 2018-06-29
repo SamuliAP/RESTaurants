@@ -13,14 +13,14 @@ const {
 // ------------------------------------
 
 // sanitize all URI parameters for XSS-protection 
-router.use('/api/users/:id' , xssMiddleware.sanitizeURI)
-router.use('/api/users/:id' , noSqlMiddleware.sanitizeURI)
+router.use('/users/:id' , xssMiddleware.sanitizeURI)
+router.use('/users/:id' , noSqlMiddleware.sanitizeURI)
 
 // ------------------------------------
 
 // GET all users
 // ADMIN ONLY
-router.get('/api/users', 
+router.get('/users', 
   authMiddleware.authenticate,
   permissionsMiddleware.isAdmin,
   usersController.getUsers
@@ -28,7 +28,7 @@ router.get('/api/users',
 
 // GET user by id
 // ADMIN OR CURRENT USER ONLY
-router.get('/api/users/:id', 
+router.get('/users/:id', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.getUser
@@ -39,14 +39,14 @@ router.get('/api/users/:id',
 // as we don't want to give manager permissions to everyone.
 // Removing the 'role' -property defaults it to the default role 
 // defined in the User model definition.
-router.post('/api/users',
+router.post('/users',
   bodyManipulationMiddleware.removeBodyPropertyIfNotAdmin('role'),
   usersController.createUser
 )
 
 // PUT (update) a user completely
 // ADMIN ONLY
-router.put('/api/users/:id', 
+router.put('/users/:id', 
   authMiddleware.authenticate,
   permissionsMiddleware.isAdmin,
   usersController.updateUser
@@ -54,7 +54,7 @@ router.put('/api/users/:id',
 
 // PATCH (update) a users email
 // ADMIN OR CURRENT USER ONLY
-router.patch('/api/users/:id/email', 
+router.patch('/users/:id/email', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.updateUserEmail
@@ -62,7 +62,7 @@ router.patch('/api/users/:id/email',
 
 // PATCH (update) a users password
 // ADMIN OR CURRENT USER ONLY
-router.patch('/api/users/:id/password', 
+router.patch('/users/:id/password', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.updateUserPassword
@@ -70,7 +70,7 @@ router.patch('/api/users/:id/password',
 
 // PATCH (update) a users role
 // ADMIN ONLY
-router.patch('/api/users/:id/role', 
+router.patch('/users/:id/role', 
   authMiddleware.authenticate,
   permissionsMiddleware.isAdmin,
   usersController.updateUserRole
@@ -78,7 +78,7 @@ router.patch('/api/users/:id/role',
 
 // DELETE a user
 // ADMIN OR CURRENT USER ONLY
-router.delete('/api/users/:id', 
+router.delete('/users/:id', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.deleteUser

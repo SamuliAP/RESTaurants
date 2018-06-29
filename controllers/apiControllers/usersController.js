@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User } = require('../../models')
 const parent   = require('./controllerParent')
 
 exports.getUsers           = parent.findAll(User)

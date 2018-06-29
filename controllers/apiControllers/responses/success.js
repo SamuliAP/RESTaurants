@@ -19,9 +19,16 @@ exports.type = {
   }
 }
 
-exports.send = (res, type, successObject = {status: "success"}) => {
+exports.create = (res, next, type, successObject = {status: "success"}) => {
   message = type.message(successObject)
   code    = type.code
   
-  res.status(code).send(message)
+  res.locals.response = {
+    code: code,
+    message: message
+  }
+
+  res.locals.success = true
+
+  next()
 }

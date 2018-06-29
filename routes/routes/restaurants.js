@@ -14,22 +14,22 @@ const { Restaurant } = require('../../models')
 // ------------------------------------
 
 // sanitize all URI parameters for XSS-protection 
-router.use('/api/restaurants/:id' , xssMiddleware.sanitizeURI)
-router.use('/api/restaurants/:id' , noSqlMiddleware.sanitizeURI)
+router.use('/restaurants/:id' , xssMiddleware.sanitizeURI)
+router.use('/restaurants/:id' , noSqlMiddleware.sanitizeURI)
 
 // ------------------------------------
 
 // GET all restaurants
 // Open also to non logged in users
-router.get('/api/restaurants', restaurantsController.getRestaurants)
+router.get('/restaurants', restaurantsController.getRestaurants)
 
 // GET restaurant by id
 // Open also to non logged in users
-router.get('/api/restaurants/:id', restaurantsController.getRestaurant)
+router.get('/restaurants/:id', restaurantsController.getRestaurant)
 
 // POST a new restaurant
 // ADMIN OR MANAGER ONLY
-router.post('/api/restaurants',
+router.post('/restaurants',
   authMiddleware.authenticate,
   permissionsMiddleware.isAdminOrHasRole('manager'),
   // Assign the current session user as the owner by 
@@ -41,7 +41,7 @@ router.post('/api/restaurants',
 
 // PUT (update) a restaurant apart from owner
 // ADMIN OR MANAGER+OWNER ONLY
-router.put('/api/restaurants/:id',
+router.put('/restaurants/:id',
   authMiddleware.authenticate,
   permissionsMiddleware.isAdminOrHasRole('manager'),
   permissionsMiddleware.isAdminOrIsOwner(Restaurant),
@@ -50,7 +50,7 @@ router.put('/api/restaurants/:id',
 
 // PATCH (update) a restaurants name
 // ADMIN OR MANAGER+OWNER ONLY
-router.patch('/api/restaurants/:id/name',
+router.patch('/restaurants/:id/name',
   authMiddleware.authenticate,
   permissionsMiddleware.isAdminOrHasRole('manager'),
   permissionsMiddleware.isAdminOrIsOwner(Restaurant),
@@ -59,7 +59,7 @@ router.patch('/api/restaurants/:id/name',
 
 // PATCH (update) a restaurants address
 // ADMIN OR MANAGER+OWNER ONLY
-router.patch('/api/restaurants/:id/address',
+router.patch('/restaurants/:id/address',
   authMiddleware.authenticate,
   permissionsMiddleware.isAdminOrHasRole('manager'),
   permissionsMiddleware.isAdminOrIsOwner(Restaurant),
@@ -68,7 +68,7 @@ router.patch('/api/restaurants/:id/address',
 
 // DELETE a restaurant
 // ADMIN OR MANAGER+OWNER ONLY
-router.delete('/api/restaurants/:id',
+router.delete('/restaurants/:id',
   authMiddleware.authenticate,
   permissionsMiddleware.isAdminOrHasRole('manager'),
   permissionsMiddleware.isAdminOrIsOwner(Restaurant),

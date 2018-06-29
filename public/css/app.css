@@ -1,0 +1,22 @@
+.login, .create-user {
+  margin-top: 25px;
+  padding: 25px;
+  width:50%;
+}
+
+.header {
+  padding: 0px 0px 60px 10px;
+}
+
+.error.row {
+  margin: 0;
+}
+
+.error-message {
+  margin: auto;
+  display: table;
+}
+
+.navbar-button {
+  margin: 13px;
+}

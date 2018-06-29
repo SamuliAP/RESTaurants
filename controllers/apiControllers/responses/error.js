@@ -77,9 +77,21 @@ exports.type = {
 //   message: "An error has happened", 
 //   type: "ErrorHappenedError"
 // }
-exports.send = (res, type, errObject = {}) => {
+exports.create = (res, next, type, errObject = {}) => {
+
   message = type.message(errObject)
   code    = type.code
 
-  res.status(code).send(message)
+  res.locals.response = {
+    code: code,
+    message: message
+  }
+
+  res.locals.success = false
+  res.locals.renderParams = {
+    errors: message.errors
+  }
+
+  // skip rest of middleware stack on error
+  next('route')
 }

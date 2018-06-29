@@ -7,10 +7,10 @@ const { authMiddleware     } = require('../../middleware')
 // ------------------------------------
 
 // POST a new session (log in)
-router.post('/api/session', sessionsController.createSession)
+router.post('/session', sessionsController.createSession)
 
 // DELETE an existing user session (log out)
-router.delete('/api/session', authMiddleware.authenticate, sessionsController.deleteSession)
+router.delete('/session', authMiddleware.authenticate, sessionsController.deleteSession)
 
 // ------------------------------------
 

@@ -1,0 +1,27 @@
+<nav class="header">
+  <div class="nav-wrapper">
+    <a href="/"> 
+      <h4 class="brand-logo">RESTaurants</h4> 
+    </a>
+    {{#if authenticated}}
+      <button id="logout" class="navbar-button right waves-effect waves-light btn">Logout</button>
+      {{!-- 
+        We need to use fetch for deleting a session because html forms don't support all HTTP methods.
+        Because we are using fetch, we can't redirect or render
+        on the server, so we have to redirect manyally here. 
+
+        Other option would be POSTing a form to delete a session, but that's herecy. 
+      --}}
+      <script type="text/javascript">
+        document.getElementById('logout').addEventListener("click", function(){
+          fetch('/api/session', { 
+            method: "DELETE",
+            credentials: "same-origin"
+          }).then(() => window.location.href = '/login')
+        })
+      </script>
+    {{else}}
+      <a class="navbar-button right waves-effect waves-light btn" href="/login">Login</a>
+    {{/if}}
+  </div>
+</nav>

@@ -1,4 +1,4 @@
-const { Restaurant } = require('../models')
+const { Restaurant } = require('../../models')
 const parent         = require('./controllerParent')
 
 exports.getRestaurants          = parent.findAll(Restaurant)

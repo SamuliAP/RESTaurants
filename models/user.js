@@ -7,14 +7,17 @@ const mongoose  = require('mongoose')
  */
 const validator = require('validator')
 
+// unique validator plugin for clearer error messages on unique constraint errors 
+const uniqueValidator = require('mongoose-unique-validator');
+
 // bcrypt for password hashing
 var bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema({
   email: {
     type     : String,
-    required : true,
-    unique   : true,
+    required : '{PATH} is required!',
+    unique   : 'Expected {PATH} to be unique. Value: "{VALUE}".',
     validate : {
       validator : val => validator.isEmail(val),
       message   : '{VALUE} is not a valid email address'
@@ -22,7 +25,7 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type     : String,
-    required : true,
+    required : '{PATH} is required!',
     validate : {
       validator : val => validator.isLength(val, { min: 6 }),
       message   : 'Password needs to be at least 6 characters long'
@@ -32,7 +35,7 @@ const userSchema = mongoose.Schema({
     type     : String,
     enum     : ['basic', 'manager' ,'admin'],
     default  : 'basic',
-    required : true
+    required : '{PATH} is required!'
   }
 }, { 
   timestamps : {},
@@ -78,5 +81,7 @@ userSchema.virtual('links').get(function() {
     all  : `/api/users`
   }
 })
+
+userSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', userSchema)
