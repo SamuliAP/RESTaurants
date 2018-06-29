@@ -17,7 +17,7 @@
           fetch('/api/session', { 
             method: "DELETE",
             credentials: "same-origin"
-          }).then(() => window.location.href = '/login')
+          }).then(() => window.location.replace("/login"))
         })
       </script>
     {{else}}
