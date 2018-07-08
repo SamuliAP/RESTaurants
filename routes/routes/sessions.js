@@ -14,4 +14,13 @@ router.delete('/session', authMiddleware.authenticate, sessionsController.delete
 
 // ------------------------------------
 
+/*
+ * semantically incorrect POST routes for hbs templates 
+ * since template rendering has limitations when using XHR, and 
+ * html <form> only supports GET and POST
+ */
+
+// log out
+router.post('/logout', authMiddleware.authenticate, sessionsController.deleteSession)
+
 module.exports = router

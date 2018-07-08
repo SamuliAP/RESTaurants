@@ -1,15 +1,10 @@
 exports.login = (req, res, next) => {
   if(res.locals.success) {
-    return res.redirect('/')
+    return res.redirect('/restaurants')
   } else {
     res.locals.view = 'login'
   }
   next()
-  
-}
-
-exports.logout = (req, res, next) => {
-  return res.redirect('/login')
 }
 
 exports.getLoginPage = (req, res, next) => {

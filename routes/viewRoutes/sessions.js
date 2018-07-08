@@ -5,8 +5,8 @@ const { sessionsViewController, frontPageViewController } = require('../../contr
 
 router.get('/login', sessionsViewController.getLoginPage)
 
-router.delete('/session', sessionsViewController.logout)
-
 router.post('/session', sessionsViewController.login)
+
+router.post('/logout', sessionsViewController.getLoginPage)
 
 module.exports = router

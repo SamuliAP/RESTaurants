@@ -7,7 +7,8 @@ const {
   noSqlMiddleware,
   authMiddleware,
   permissionsMiddleware,
-  bodyManipulationMiddleware
+  bodyManipulationMiddleware,
+  inputValidationMiddleware
 } = require('../../middleware')
 
 // ------------------------------------
@@ -41,6 +42,8 @@ router.get('/users/:id',
 // defined in the User model definition.
 router.post('/users',
   bodyManipulationMiddleware.removeBodyPropertyIfNotAdmin('role'),
+  inputValidationMiddleware.validateEmail,
+  inputValidationMiddleware.validatePassword,
   usersController.createUser
 )
 
@@ -49,6 +52,8 @@ router.post('/users',
 router.put('/users/:id', 
   authMiddleware.authenticate,
   permissionsMiddleware.isAdmin,
+  inputValidationMiddleware.validateEmail,
+  inputValidationMiddleware.validatePassword,
   usersController.updateUser
 )
 
@@ -57,6 +62,7 @@ router.put('/users/:id',
 router.patch('/users/:id/email', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
+  inputValidationMiddleware.validateEmail,
   usersController.updateUserEmail
 )
 
@@ -65,6 +71,7 @@ router.patch('/users/:id/email',
 router.patch('/users/:id/password', 
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
+  inputValidationMiddleware.validatePassword,
   usersController.updateUserPassword
 )
 
@@ -82,6 +89,32 @@ router.delete('/users/:id',
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.deleteUser
+)
+
+// ------------------------------------
+
+/*
+ * semantically incorrect POST routes for hbs templates 
+ * since template rendering has limitations when using XHR, and 
+ * html <form> only supports GET and POST
+ */
+
+// POST a new user email
+// ADMIN OR CURRENT USER ONLY
+router.post('/users/:id/email', 
+  authMiddleware.authenticate, 
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
+  inputValidationMiddleware.validateEmail,
+  usersController.updateUserEmail
+)
+
+// POST a new user password
+// ADMIN OR CURRENT USER ONLY
+router.post('/users/:id/password', 
+  authMiddleware.authenticate, 
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
+  inputValidationMiddleware.validatePassword,
+  usersController.updateUserPassword
 )
 
 // ------------------------------------

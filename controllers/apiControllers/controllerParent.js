@@ -55,10 +55,11 @@ exports.update = (Model, props) => (req, res, next) => {
   for(key of props) {
     params[key] = req.body[key]
   }
-
-  Model.findByIdAndUpdate(req.params.id, params, { 
+  
+  Model.findByIdAndUpdate(req.params.id, params, {
     new: true,
-    runValidators: true 
+    runValidators: true,
+    context: 'query'
   }, (err, data) => {
     if(err)        { return error.create(res, next, error.type.MONGOOSE, err) }
     else if(!data) { return error.create(res, next, error.type.NOTFOUND) } 

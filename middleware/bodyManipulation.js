@@ -32,7 +32,7 @@ exports.removeBodyProperty = key => (req, res, next) => {
 
 // Remove a body property conditionally, if user is not admin
 exports.removeBodyPropertyIfNotAdmin = key => (req, res, next) => {
-  User.findById(req.session.user, (err, user) => {
+  User.findById(req.session.user && req.session.user.id, (err, user) => {
 
     if(err || !user || user.role !== 'admin') {
       delete req.body[key] 

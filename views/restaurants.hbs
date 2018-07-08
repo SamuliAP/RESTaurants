@@ -1,0 +1,7 @@
+{{#if user.role.admin}}
+  {{>admin/frontPage}}
+{{else if user.role.manager}}
+  {{>manager/frontPage}}
+{{else}}
+  {{>basic/frontPage}}
+{{/if}}

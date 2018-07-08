@@ -1,12 +1,5 @@
 const mongoose  = require('mongoose')
 
-/* Using validator instead of e.g. express-validator as input validation for
- * easier consistent error message formatting. This also
- * enables us doing all our validation in the same spot without
- * having to do it manually in a middleware (e.g. checking whether email already exists in db).
- */
-const validator = require('validator')
-
 // unique validator plugin for clearer error messages on unique constraint errors 
 const uniqueValidator = require('mongoose-unique-validator');
 
@@ -17,19 +10,11 @@ const userSchema = mongoose.Schema({
   email: {
     type     : String,
     required : '{PATH} is required!',
-    unique   : 'Expected {PATH} to be unique. Value: "{VALUE}".',
-    validate : {
-      validator : val => validator.isEmail(val),
-      message   : '{VALUE} is not a valid email address'
-    }
+    unique   : 'Expected {PATH} to be unique. Value: "{VALUE}".'
   },
   password: {
     type     : String,
-    required : '{PATH} is required!',
-    validate : {
-      validator : val => validator.isLength(val, { min: 6 }),
-      message   : 'Password needs to be at least 6 characters long'
-    }
+    required : '{PATH} is required!'
   },
   role: {
     type     : String,
@@ -64,7 +49,16 @@ userSchema.pre('save', function(next) {
 userSchema.pre('findOneAndUpdate', function(next) {
   var user = this
   var pass = user._update.password
-  
+
+  if(!pass) {
+    pass = user._conditions.password
+  }
+
+  // not updating password
+  if(!pass) {
+    return next()
+  }
+
   bcrypt.hash(pass, 10, function(err, hash) {
     if(err) {
       return next(err)

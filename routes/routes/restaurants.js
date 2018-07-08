@@ -20,12 +20,10 @@ router.use('/restaurants/:id' , noSqlMiddleware.sanitizeURI)
 // ------------------------------------
 
 // GET all restaurants
-// Open also to non logged in users
-router.get('/restaurants', restaurantsController.getRestaurants)
+router.get('/restaurants', authMiddleware.authenticate, restaurantsController.getRestaurants)
 
 // GET restaurant by id
-// Open also to non logged in users
-router.get('/restaurants/:id', restaurantsController.getRestaurant)
+router.get('/restaurants/:id', authMiddleware.authenticate, restaurantsController.getRestaurant)
 
 // POST a new restaurant
 // ADMIN OR MANAGER ONLY
@@ -35,7 +33,7 @@ router.post('/restaurants',
   // Assign the current session user as the owner by 
   // binding it as a new body property
   (req, res, next) => 
-    bodyManipulationMiddleware.newBodyProperty('owner', req.session.user, req, res, next),
+    bodyManipulationMiddleware.newBodyProperty('owner', req.session.user.id, req, res, next),
   restaurantsController.createRestaurant
 )
 

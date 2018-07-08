@@ -20,7 +20,7 @@ exports.createSession = (req, res, next) => {
         return error.create(res, next, error.type.UNAUTHORIZED) 
       }
       req.session.authenticated = true
-      req.session.user = user.id
+      req.session.user = user
       return success.create(res, next, success.type.OK)
     })
   })

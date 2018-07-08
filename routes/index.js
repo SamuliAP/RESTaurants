@@ -7,6 +7,6 @@ const router  = express.Router()
  * / will dispatch with response.render()
  */
  router.use('/api', require('./api'))
- router.use('/'   , require('./app'))
+ router.use('/'   , require('./views'))
 
 module.exports = router

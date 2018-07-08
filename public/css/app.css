@@ -1,7 +1,5 @@
 .login, .create-user {
-  margin-top: 25px;
-  padding: 25px;
-  width:50%;
+  width: 50%;
 }
 
 .header {
@@ -19,4 +17,31 @@
 
 .navbar-button {
   margin: 13px;
+}
+
+.form {
+  padding: 25px;
+}
+
+.page-footer {
+  margin-top:auto;
+}
+
+.page-content {
+  margin-bottom:50px;
+  margin-top:50px;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.hidden {
+  display: none;
 }
