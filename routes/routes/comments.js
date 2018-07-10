@@ -51,4 +51,26 @@ router.delete('/comments/:id',
 
 // ------------------------------------
 
+/*
+ * semantically incorrect POST routes for hbs templates 
+ * since template rendering has limitations when using XHR, and 
+ * html <form> only supports GET and POST
+ */
+
+// POST to update a comment, only updating the comment contents is allowed
+// ADMIN OR OWNER ONLY
+router.post('/comments/:id',
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdminOrIsOwner(Comment),
+  commentsController.updateComment
+)
+
+// POST to delete a comment
+// ADMIN OR OWNER ONLY
+router.post('/comments/:id/delete',
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdminOrIsOwner(Comment),
+  commentsController.deleteComment
+)
+
 module.exports = router

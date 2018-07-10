@@ -117,7 +117,7 @@ router.post('/users/:id/password',
   usersController.updateUserPassword
 )
 
-// DELETE a user
+// POST to delete a user
 // ADMIN OR CURRENT USER ONLY
 router.post('/users/:id/account/delete',
   authMiddleware.authenticate, 
