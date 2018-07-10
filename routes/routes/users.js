@@ -1,7 +1,7 @@
 const express = require('express')
 const router  = express.Router()
 
-const { usersController } = require('../../controllers')
+const { usersController, sessionsController } = require('../../controllers')
 const { 
   xssMiddleware,
   noSqlMiddleware,
@@ -115,6 +115,14 @@ router.post('/users/:id/password',
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   inputValidationMiddleware.validatePassword,
   usersController.updateUserPassword
+)
+
+// DELETE a user
+// ADMIN OR CURRENT USER ONLY
+router.post('/users/:id/account/delete',
+  authMiddleware.authenticate, 
+  permissionsMiddleware.IsAdminOrUriIdIsUser,
+  usersController.deleteUser
 )
 
 // ------------------------------------
