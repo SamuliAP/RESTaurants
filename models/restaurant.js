@@ -15,8 +15,8 @@ const restaurantSchema = mongoose.Schema({
     required : '{PATH} is required!'
   },
   owner: {
-    type : Schema.Types.ObjectId,
-    ref  : 'User',
+    type     : Schema.Types.ObjectId,
+    ref      : 'User',
     required : '{PATH} is required!'
   }
 }, {
