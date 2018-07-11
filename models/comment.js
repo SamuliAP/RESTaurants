@@ -42,10 +42,32 @@ commentSchema.pre('save', function(next){
 
   Restaurant.findByIdAndUpdate( self.restaurant, {
     $push: { comments: comment }
-  }, function(err, data) {
-    if(err)        { return error.create(res, next, error.type.MONGOOSE, err) } 
-    else if(!data) { return error.create(res, next, error.type.NOTFOUND) } 
-    else           { next() }   
+  }, function(err, data) { next() })
+})
+
+// delete comment from restaurant on remove
+commentSchema.pre('findOneAndRemove', function(next) {
+  var self = this
+  Restaurant.update({}, { 
+    $pull: { 
+      comments: { 
+        _id: self._conditions._id 
+      }
+    }
+  }, { multi: true }, () => {
+    next()
+  })
+})
+
+// update comment related to restaurant on update
+commentSchema.pre('findOneAndUpdate', function(next) {
+  var self = this;
+  Restaurant.update({ 'comments._id' : self._conditions._id }, { 
+    $set: { 
+      'comments.$.comment': self._update.comment
+    }
+  }, { multi: true }, () => {
+    next()
   })
 })
 
