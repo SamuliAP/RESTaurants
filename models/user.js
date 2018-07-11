@@ -1,4 +1,4 @@
-const mongoose  = require('mongoose')
+const mongoose   = require('mongoose')
 
 // unique validator plugin for clearer error messages on unique constraint errors 
 const uniqueValidator = require('mongoose-unique-validator');
@@ -66,6 +66,16 @@ userSchema.pre('findOneAndUpdate', function(next) {
     user._update.password = hash
     next()
   })
+})
+
+// remove restaurants and comments with user
+userSchema.pre('findOneAndRemove', function(next) {
+  const Restaurant = mongoose.model('Restaurant');
+  const Comment = mongoose.model('Comment');
+  var self = this
+  Restaurant.deleteMany({ owner: self._conditions._id }, () => { 
+    Comment.deleteMany({ owner: self._conditions._id }, () => next())
+   })
 })
 
 // for HATEOAS
