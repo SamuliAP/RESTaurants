@@ -7,7 +7,7 @@ exports.login = (req, res, next) => {
   next()
 }
 
-exports.getLoginPage = (req, res, next) => {
+exports.getLoginView = (req, res, next) => {
   res.locals.view = 'login'
   next()
 }

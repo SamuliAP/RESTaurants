@@ -1,9 +1,9 @@
 require('dotenv').config()
-const mongo    = require('../database')
+const { mongoose } = require('../database')
 const { User } = require('../models')
 
 // connect to database
-db = mongo.connect()
+db = mongoose.connect()
 
 db.once('open', () => {
   let adminParams = {

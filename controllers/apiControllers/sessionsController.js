@@ -2,6 +2,7 @@ const { User           } = require('../../models')
 const { error, success } = require('./responses')
 const bcrypt             = require('bcryptjs')
 
+// create session
 exports.createSession = (req, res, next) => {
   // TODO: basic auth encryption
   let email = req.body.email
@@ -26,6 +27,7 @@ exports.createSession = (req, res, next) => {
   })
 }
 
+// delete session
 exports.deleteSession = (req, res, next) => {
   req.session.destroy(err => {
     if(err) {

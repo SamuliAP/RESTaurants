@@ -3,4 +3,5 @@ module.exports = [
   require('./sessions'),
   require('./users'),
   require('./restaurants'),
+  require('./comments')
 ]

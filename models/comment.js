@@ -1,6 +1,7 @@
 const mongoose  = require('mongoose')
-const Schema    = mongoose.Schema
+const Schema = mongoose.Schema
 const Restaurant = mongoose.model('Restaurant');
+const User = mongoose.model('User');
 const { error } = require('../controllers/apiControllers/responses')
 
 const commentSchema = mongoose.Schema({
@@ -14,9 +15,11 @@ const commentSchema = mongoose.Schema({
     required : '{PATH} is required!'
   },
   owner: {
-    type     : Schema.Types.ObjectId,
-    ref      : 'User',
-    required : '{PATH} is required!'
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    email: String 
   }
 }, {
   timestamps : {},
@@ -34,15 +37,12 @@ commentSchema.virtual('links').get(function() {
 // save comments to restaurant
 commentSchema.pre('save', function(next){
   var self = this
-  let comment = {
-    _id: self._id,
-    comment: self.comment,
-    owner: self.owner
-  }
-
-  Restaurant.findByIdAndUpdate( self.restaurant, {
-    $push: { comments: comment }
-  }, function(err, data) { next() })
+  User.findById(self.owner._id, (err, user) => {
+    if(user) self.owner.email = user.email
+    Restaurant.findByIdAndUpdate( self.restaurant, {
+      $push: { comments: self }
+    }, next)
+  })
 })
 
 // delete comment from restaurant on remove
@@ -54,21 +54,7 @@ commentSchema.pre('findOneAndRemove', function(next) {
         _id: self._conditions._id 
       }
     }
-  }, { multi: true }, () => {
-    next()
-  })
-})
-
-// update comment related to restaurant on update
-commentSchema.pre('findOneAndUpdate', function(next) {
-  var self = this;
-  Restaurant.update({ 'comments._id' : self._conditions._id }, { 
-    $set: { 
-      'comments.$.comment': self._update.comment
-    }
-  }, { multi: true }, () => {
-    next()
-  })
+  }, { multi: true }, next)
 })
 
 module.exports = mongoose.model('Comment', commentSchema)

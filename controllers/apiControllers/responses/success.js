@@ -27,7 +27,7 @@ exports.create = (res, next, type, successObject = {status: "success"}) => {
     code: code,
     message: message
   }
-  
+
   res.locals.success = true
   res.locals.renderParams = message
 

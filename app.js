@@ -8,13 +8,13 @@ const bodyParser       = require('body-parser')
 const expressSanitizer = require('express-sanitizer')
 const session          = require('express-session')
 const csurf            = require('csurf')
-var hbs                = require('express-hbs');
 
 // ------------------------------------
 // Internal modules
 // ------------------------------------
 const routes          = require('./routes')
-const mongo           = require('./database')
+const { mongoose }    = require('./database')
+const { hbs }         = require('./viewEngine');
 const envVarValidator = require('./utils/envVarValidator')
 const {
   xssMiddleware,
@@ -30,16 +30,10 @@ const app = express()
 // ------------------------------------
 // View engine
 // ------------------------------------
-app.engine('hbs', hbs.express4({
-  partialsDir: __dirname + '/views/partials',
-  layoutsDir: __dirname + '/views/layouts',
-  defaultLayout: __dirname + '/views/layouts/layout.hbs'
-}));
 
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
+hbs.initialize(app)
 
-// serve assets for handlebars
+// serve assets for views
 app.use(express.static(__dirname + '/public'));
 
 // ------------------------------------
@@ -84,6 +78,6 @@ app.use(routes)
 // connect to database and start listening only if the environment is configured correctly
 // ------------------------------------
 if(envVarValidator.validate()) {
-  mongo.connect()
+  mongoose.connect()
   app.listen(PORT, console.log(`The server is listening in port ${PORT}`))
 }

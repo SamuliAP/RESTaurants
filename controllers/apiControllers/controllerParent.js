@@ -4,8 +4,19 @@
 const { error, success } = require('./responses')
 
 // Find all model documents
-exports.findAll = Model => (req, res, next) => {
-  Model.find({}, (err, data) => {
+// --
+// QueryParams must be located in the URI params (req.params)
+// QueryParam format is { queryKey: req.params key }
+// e.g. with queryParams = { attribute: 'attributeId' }
+// converts to { attribute: req.params.attributeId }
+exports.findAll = (Model, queryParams = {}) => (req, res, next) => {
+
+  let query = {}
+  for(key of Object.keys(queryParams)) {
+    query[key] = req.params[queryParams[key]]
+  }
+
+  Model.find(query, (err, data) => {
     if(err)              { return error.create(res, next, error.type.MONGOOSE, err) } 
     else if(!data || 
       data.length === 0) { return error.create(res, next, error.type.NOTFOUND) } 
@@ -24,15 +35,15 @@ exports.findById = Model => (req, res, next) => {
 
 // Create a model document
 // --
-// Parameters must be located in the request body
-// and listed in the 'props' -parameter as an array 
-// of object key strings,
-// e.g. ['param1', 'param2'...] -> request.body.param1 etc.
-exports.create = (Model, props) => (req, res, next) => {
+// props must be located in the request body (req.params)
+// props format is { propKey: req.body key }
+// e.g. with props = { attribute: 'attributeId' }
+// converts to { attribute: req.body.attributeId }
+exports.create = (Model, props = {}) => (req, res, next) => {
   
   let params = {}
-  for(key of props) {
-    params[key] = req.body[key]
+  for(key of Object.keys(props)) {
+    params[key] = req.body[props[key]]
   }
 
   Model.create(params, (err, data) => {
@@ -45,15 +56,15 @@ exports.create = (Model, props) => (req, res, next) => {
 
 // Update a model document
 // -- 
-// Parameters must be located in the request body
-// and listed in the 'props' -parameter as an array 
-// of object key strings, 
-// e.g. ['param1', 'param2'...] -> request.body.param1 etc.
-exports.update = (Model, props) => (req, res, next) => {
+// props must be located in the request body (req.params)
+// props format is { propKey: req.body key }
+// e.g. with props = { attribute: 'attributeId' }
+// converts to { attribute: req.body.attributeId }
+exports.update = (Model, props = {}) => (req, res, next) => {
 
   let params = {}
-  for(key of props) {
-    params[key] = req.body[key]
+  for(key of Object.keys(props)) {
+    params[key] = req.body[props[key]]
   }
   
   Model.findByIdAndUpdate(req.params.id, params, {

@@ -73,6 +73,12 @@ router.delete('/restaurants/:id',
   restaurantsController.deleteRestaurant
 )
 
+// GET restaurant comments
+router.get('/restaurants/:id/comments',
+  authMiddleware.authenticate,
+  restaurantsController.getRestaurantComments
+)
+
 // ------------------------------------
 
 module.exports = router

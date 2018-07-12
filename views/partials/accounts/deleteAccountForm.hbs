@@ -1,6 +1,8 @@
 <div class="form row col s12">
   <label>
     <h5>Delete Account</h5>
+    <h6>This will also delete your restaurants and comments</h6>
+    <p>( GDPR Ahoy! )</p>
   </label>
   <form class="col s12" action="/users/{{user.id}}/account/delete" method="POST">
     <div class="row">

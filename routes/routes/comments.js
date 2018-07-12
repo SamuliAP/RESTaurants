@@ -25,6 +25,12 @@ router.get('/comments', authMiddleware.authenticate, commentsController.getComme
 // GET comment by id
 router.get('/comments/:id', authMiddleware.authenticate, commentsController.getComment)
 
+// GET a restaurants comments
+router.get('/restaurants/:id/comments',
+  authMiddleware.authenticate,
+  
+)
+
 // POST a new comment
 router.post('/comments',
   authMiddleware.authenticate,

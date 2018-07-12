@@ -1,17 +1,11 @@
-exports.getRestaurants = (req, res, next) => {
-  if(req.session.authenticated) {
-    res.locals.view = "restaurants"
-  } else {
-    return res.redirect('/login')
-  }
+exports.getRestaurantCommentsView = (req, res, next) => {
+  // give current restaurant id to view
+  res.locals.renderParams['restaurantId'] = req.params.id
+  res.locals.view = "restaurantComments"
   next()
 }
 
-exports.createRestaurant = (req, res, next) => {
-  if(!res.locals.renderParams.errors) {
-    return res.redirect('/restaurants')
-  } else {
-    res.locals.view = "restaurants"
-  }
+exports.getRestaurantsView = (req, res, next) => {
+  res.locals.view = "restaurants"
   next()
 }

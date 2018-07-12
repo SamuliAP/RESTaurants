@@ -20,15 +20,8 @@ const restaurantSchema = mongoose.Schema({
     required : '{PATH} is required!'
   },
   comments: [{
-    _id:{
-      type: Schema.Types.ObjectId,
-      ref: 'Comment'
-    },
-    comment: String,
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }
+    type : Schema.Types.ObjectId,
+    ref  : 'Comment'
   }]
 }, {
   timestamps : {},
