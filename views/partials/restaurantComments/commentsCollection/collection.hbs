@@ -2,7 +2,14 @@
   <ul class="collection with-header">
     <li class="collection-header"><h4>Comments</h4></li>
     {{#each data}}
-      {{>restaurantComments/commentsCollection/collectionRow}}
+      {{>restaurantComments/commentsCollection/collectionRow
+        id=id
+        owner=owner
+        restaurant=restaurant
+        user=../user
+        updatedAt=updatedAt
+        comment=comment
+      }}
     {{/each}}
   </ul>
 {{/unless}}

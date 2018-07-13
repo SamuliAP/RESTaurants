@@ -3,4 +3,7 @@
   <b class="title"> {{owner.email}} </b>
   | <label> {{formatDate updatedAt}} </label>
   <p>{{comment}}</p>
+  {{#ifEquals owner._id user.id}}
+    {{>restaurantComments/deleteCommentButton}}
+  {{/ifEquals}}
 </li>
