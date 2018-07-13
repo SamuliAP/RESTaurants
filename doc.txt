@@ -1,2 +1,2 @@
 .env
-npm run createDefaults
+npm run initialize
