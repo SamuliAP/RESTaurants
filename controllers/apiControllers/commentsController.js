@@ -18,4 +18,4 @@ exports.createComment = parent.create(Comment, {
 exports.updateComment = parent.update(Comment, { comment: 'comment' })
 
 // delete comment
-exports.deleteComment        = parent.delete(Comment)
+exports.deleteComment = parent.delete(Comment)

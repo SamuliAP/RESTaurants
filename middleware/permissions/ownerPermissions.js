@@ -3,7 +3,7 @@ const { error } = require('../../controllers/apiControllers/responses')
 
 // Check whether session user is Model owner, return error otherwise
 // NOTE: Model must have a field with key 'owner' 
-exports.isOwner = Model => (req, res, next) => {
+isOwner = Model => (req, res, next) => {
   Model.findOne({ owner: req.session.user.id }, (err, doc) => {
 
     if(err || !doc) {
@@ -13,6 +13,7 @@ exports.isOwner = Model => (req, res, next) => {
     return next()
   })
 }
+exports.isOwner = isOwner
 
 // Check whether session user is Model owner OR user is admin, return error otherwise
 // NOTE: Model must have a field with key 'owner' 

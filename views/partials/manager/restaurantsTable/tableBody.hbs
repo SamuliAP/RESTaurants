@@ -1,0 +1,12 @@
+<tbody>
+  {{#each data}}
+    {{>manager/restaurantsTable/tableRow 
+    this=this
+      id=id
+      name=name
+      address=address
+      owner=owner 
+      user=../user
+    }}
+  {{/each}}
+</tbody>

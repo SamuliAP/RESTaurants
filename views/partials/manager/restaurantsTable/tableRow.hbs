@@ -1,0 +1,8 @@
+<tr>
+  <td>{{name}}</td>
+  <td>{{address}}</td>
+  <td>{{>frontPage/toCommentsPageButton}}</td>
+  {{#ifEquals owner user.id }}
+    <td>{{>frontPage/deleteRestaurantButton}}</td>
+  {{/ifEquals}}
+</tr>

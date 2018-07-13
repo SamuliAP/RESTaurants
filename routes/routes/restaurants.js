@@ -81,4 +81,19 @@ router.get('/restaurants/:id/comments',
 
 // ------------------------------------
 
+/*
+ * semantically incorrect POST routes for hbs templates 
+ * since template rendering has limitations when using XHR, and 
+ * html <form> only supports GET and POST
+ */
+
+// POST to delete a restaurant
+// ADMIN OR MANAGER+OWNER ONLY
+router.post('/restaurants/:id/delete',
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdminOrHasRole('manager'),
+  permissionsMiddleware.isAdminOrIsOwner(Restaurant),
+  restaurantsController.deleteRestaurant
+)
+
 module.exports = router

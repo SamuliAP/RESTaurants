@@ -11,5 +11,5 @@ module.exports = {
   authMiddleware,
   inputValidationMiddleware,
   bodyManipulationMiddleware,
-  permissionsMiddleware
+  permissionsMiddleware,
 }

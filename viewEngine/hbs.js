@@ -16,4 +16,8 @@ exports.initialize = (app) => {
   hbs.registerHelper('formatDate', function(date) {
     return date.toLocaleString()
   })
+
+  hbs.registerHelper('ifEquals', function(item1, item2, options) {
+    return item1 == item2 ? options.fn(this) : options.inverse(this) 
+  })
 }

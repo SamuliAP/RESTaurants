@@ -31,4 +31,4 @@ exports.updateRestaurantName = parent.update(Restaurant, { name: 'name'})
 exports.updateRestaurantAddress = parent.update(Restaurant, { address: 'address' })
 
 // delete restaurant
-exports.deleteRestaurant        = parent.delete(Restaurant)
+exports.deleteRestaurant = parent.delete(Restaurant)

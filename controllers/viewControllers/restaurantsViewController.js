@@ -9,3 +9,11 @@ exports.getRestaurantsView = (req, res, next) => {
   res.locals.view = "restaurants"
   next()
 }
+
+exports.tryRedirectToRestaurants = (req, res, next) => {
+  if(res.locals.success) {
+    return res.redirect(`/restaurants`) 
+  }
+  res.locals.view = "restaurants"
+  next()
+}
