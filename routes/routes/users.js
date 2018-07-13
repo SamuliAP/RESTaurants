@@ -119,7 +119,7 @@ router.post('/users/:id/password',
 
 // POST to delete a user
 // ADMIN OR CURRENT USER ONLY
-router.post('/users/:id/account/delete',
+router.post('/users/:id/delete',
   authMiddleware.authenticate, 
   permissionsMiddleware.IsAdminOrUriIdIsUser,
   usersController.deleteUser

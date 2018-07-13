@@ -1,0 +1,15 @@
+<li class="collection-item avatar">
+  {{#ifEquals role 'admin'}}
+    <i class="material-icons circle cyan darken-2">supervisor_account</i>
+  {{/ifEquals}}
+  {{#ifEquals role 'manager'}}
+    <i class="material-icons circle cyan darken-2">account_box</i>
+  {{/ifEquals}}
+  {{#ifEquals role 'basic'}}
+    <i class="material-icons circle cyan darken-2">account_circle</i>
+  {{/ifEquals}}
+  <b class="title"> {{email}} </b>
+  | <label> {{role}} </label>
+  <p>Created: {{formatDate createdAt}}</p>
+  {{>admin/userManagement/deleteUserButton}}
+</li>

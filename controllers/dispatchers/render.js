@@ -5,7 +5,7 @@ assertSessionUserRole = (req, role) =>
   && req.session.user.role === role
 
 module.exports = (req, res, next) => {
-  // console.log(res.locals.renderParams)
+  console.log(res.locals.renderParams)
   res.render(res.locals.view, {
     ...res.locals.renderParams,
     authenticated: req.session && req.session.authenticated || false,
