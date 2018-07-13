@@ -1,12 +1,12 @@
 <div class="row col s12">
   <label>
-    <h5>Delete Account</h5>
-    <h6>This will also delete your restaurants and comments</h6>
+    <h4>Delete Account</h4>
+    <h6>This will also permanently delete restaurants and comments made by this account</h6>
     <p>( GDPR Ahoy! )</p>
   </label>
-  <form class="col s12" action="/users/{{user.id}}/delete" method="POST">
+  <form class="col s12" action="/users/{{data.id}}/delete" method="POST">
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field">
         <button class="btn waves-effect waves-light" type="submit" name="action">Delete
           <i class="material-icons right">send</i>
         </button>  

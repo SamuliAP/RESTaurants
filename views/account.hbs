@@ -1,6 +1,6 @@
-{{>common/pageTitle title=user.email}}
+{{>common/pageTitle title=data.email}}
 {{#if user.role.admin}}
-  {{>accounts/toUserManagementButton}}
+  {{>accounts/updateAccountRoleForm}}
 {{/if}}
 {{>accounts/updateAccountCredentialsForm}}
 {{>accounts/updateAccountPasswordForm}}

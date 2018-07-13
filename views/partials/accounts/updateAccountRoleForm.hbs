@@ -1,0 +1,36 @@
+<div class="form row z-depth-1 col s12">
+  <label>
+    <h4>Update User Role</h4>
+  </label>
+  <form class="col s12" action="/users/{{data.id}}/role" method="POST">
+    <div class="row">
+      <div class="col s2">
+        <select name="role">
+          <option value="admin"
+            {{#ifEquals data.role 'admin'}} selected {{/ifEquals}}
+          >Admin</option>
+          <option value="manager"
+            {{#ifEquals data.role 'manager'}} selected {{/ifEquals}}
+          >Manager</option>
+          <option value="basic"
+            {{#ifEquals data.role 'basic'}} selected {{/ifEquals}}
+          >Basic</option>
+        </select>
+        <label>Role</label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Update
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+</script>
+

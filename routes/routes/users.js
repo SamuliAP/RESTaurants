@@ -117,6 +117,14 @@ router.post('/users/:id/password',
   usersController.updateUserPassword
 )
 
+// POST a new user role
+// ADMIN OR CURRENT USER ONLY
+router.post('/users/:id/role', 
+  authMiddleware.authenticate,
+  permissionsMiddleware.isAdmin,
+  usersController.updateUserRole
+)
+
 // POST to delete a user
 // ADMIN OR CURRENT USER ONLY
 router.post('/users/:id/delete',

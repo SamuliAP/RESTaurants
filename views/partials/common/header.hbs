@@ -4,10 +4,16 @@
       <h4 class="brand-logo">RESTaurants</h4> 
     </a>
     <ul class="right hide-on-med-and-down">
+      {{!-- User management button --}}
+      {{#if user.role.admin}}
+        <li>
+          {{>accounts/toUserManagementButton}}
+        </li>
+      {{/if}}
       {{!-- User page button --}}
       {{#if authenticated}}
         <li>
-          <a class="btn-floating btn-medium waves-effect waves-light" href="/account">
+          <a class="btn-floating btn-medium waves-effect waves-light" href="/users/{{user.id}}">
             <i class="material-icons">account_box</i>
           </a>
         </li>
