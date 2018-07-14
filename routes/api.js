@@ -1,5 +1,6 @@
 const express = require('express')
 const router  = express.Router()
+const cors = require('cors')
 
 const { error } = require('../controllers/apiControllers/responses')
 const { send  } = require('../controllers/dispatchers') 
@@ -26,6 +27,7 @@ const errorCheck = (req, res, next) => {
 
 // the API route stack, meant for sending responses trough HTTP
 // router.use('/', errorCheck) TODO csrf checkille jotain
+router.use('/', cors())
 router.use('/', routes)
 router.use('/', notFound)
 

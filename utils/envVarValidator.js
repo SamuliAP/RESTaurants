@@ -13,10 +13,6 @@ exports.validate = () => {
     { 
       name: 'DB_NAME',
       value: process.env.DB_NAME  
-    },
-    { 
-      name: 'ROOT_URI',
-      value: process.env.ROOT_URI 
     }
   ]
   

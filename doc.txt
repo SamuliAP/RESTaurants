@@ -1,3 +1,4 @@
 .env
 npm run initialize
 janky textareas in templates
+saga overkill but treated as a learning exercise (for work)

@@ -11,6 +11,7 @@ const express          = require('express'),
       expressSanitizer = require('express-sanitizer'),
       session          = require('express-session'),
       csurf            = require('csurf')
+      cors             = require('cors')
 
 // ------------------------------------
 // Internal modules
@@ -31,11 +32,11 @@ const app = express()
 // ------------------------------------
 // View engine
 // ------------------------------------
-
 hbs.initialize(app)
 
 // serve assets for views
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/client/build'));
 
 // ------------------------------------
 // Application level middleware
@@ -66,6 +67,9 @@ app.use(session(sess))
 
 // csrf-protection
 app.use(csurf())
+
+// allow origins, need to do this for the react client
+app.use(cors())
 
 // ------------------------------------
 // Custom application level middleware
