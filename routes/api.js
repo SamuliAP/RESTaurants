@@ -15,9 +15,11 @@ const notFound = (req,res,next) => {
   next()
 }
 
+router.use('/', routes)
+router.use('/', notFound)
+
 // the API route stack, meant for sending responses trough HTTP
 module.exports = [
-  router.use('/', routes),
-  router.use('/', notFound),
+  router,
   send
 ]

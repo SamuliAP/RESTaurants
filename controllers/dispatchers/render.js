@@ -4,8 +4,7 @@ assertSessionUserRole = (req, role) =>
   && req.session.user.role 
   && req.session.user.role === role
 
-module.exports = (req, res, next) => {
-  
+module.exports = (req, res, next) => 
   res.render(res.locals.view, {
     
     // response data
@@ -30,4 +29,3 @@ module.exports = (req, res, next) => {
     // csrf token
     csrfToken: req.csrfToken()
   })
-}

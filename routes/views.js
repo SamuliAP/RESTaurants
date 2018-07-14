@@ -9,10 +9,12 @@ const viewRoutes = require('./viewRoutes')
 
 // not found page
 const notFound = (req, res, next) => {
+
   // create response only if one has not yet been created
   if(res.locals.view === undefined) {
     res.locals.view = "notFound"
   }
+
   next()
 }
 
@@ -41,13 +43,15 @@ const initRenderParams = (req, res, next) => {
   next()
 }
 
+router.use('/', errorCheck)
+router.use('/', initRenderParams)
+router.use('/', routes)
+router.use('/', viewRoutes)
+router.use('/', forceLogin)
+router.use('/', notFound)
+
 // app route stack, meant for rendering to hbs
 module.exports = [
-  router.use('/', errorCheck),
-  router.use('/', initRenderParams),
-  router.use('/', routes),
-  router.use('/', viewRoutes),
-  router.use('/', forceLogin),
-  router.use('/', notFound),
+  router,
   render
 ]

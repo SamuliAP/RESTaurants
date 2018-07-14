@@ -15,7 +15,6 @@ exports.getAccountView = (req, res, next) => {
 }
 
 exports.tryRedirectToAccountView = (req, res, next) => {
-  console.log(res.locals)
   if(res.locals.success) {
     return res.redirect(`/users/${req.params.id}`)
   }
