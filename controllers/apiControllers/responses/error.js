@@ -48,6 +48,12 @@ unauthorizedError = errObject => errorParent(
   "UnauthorizedError"
 )
 
+notPermittedError = errObject => errorParent(
+  errObject,
+  "Not Permitted",
+  "NotPermittedError"
+)
+
 
 exports.type = {
   MONGOOSE: {
@@ -69,6 +75,10 @@ exports.type = {
   UNAUTHORIZED: {
     message : unauthorizedError,
     code    : 401
+  },
+  NOTPERMITTED: {
+    message : notPermittedError,
+    code    : 403
   }
 }
 
@@ -86,11 +96,7 @@ exports.create = (res, next, type, errObject = {}) => {
     code: code,
     message: message
   }
-
   res.locals.success = false
-  res.locals.renderParams = {
-    errors: message.errors
-  }
 
   // skip rest of middleware stack on error
   next('route')

@@ -4,6 +4,7 @@
     <h4>Create Restaurant</h4>
   </label>
   <form class="col s12" action="/restaurants" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="row">
       <div class="input-field col s12">
         <input name="name" type="text">

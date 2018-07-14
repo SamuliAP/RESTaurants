@@ -22,6 +22,7 @@
         {{!-- Login / Logout button  --}}
         {{#if authenticated}}
           <form action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <button id="logout" class="navbar-button right waves-effect waves-light btn btn-flat header-button">Logout</button>
           </form>
         {{else}}

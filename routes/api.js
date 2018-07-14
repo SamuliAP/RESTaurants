@@ -4,18 +4,20 @@ const router  = express.Router()
 const { error } = require('../controllers/apiControllers/responses')
 const { send  } = require('../controllers/dispatchers') 
 
+const routes = require('./routes')
+
 // 404 for catching not matched /api routes
-const notFound = router.use('/api', (req,res,next) => {
+const notFound = (req,res,next) => {
   // create response only if one has not yet been created
   if(res.locals.response === undefined) {
-    error.create(res, next, error.type.NOTFOUND)
+    return error.create(res, next, error.type.NOTFOUND)
   }
   next()
-})
+}
 
 // the API route stack, meant for sending responses trough HTTP
 module.exports = [
-  require('./routes'),
-  notFound,
+  router.use('/', routes),
+  router.use('/', notFound),
   send
 ]

@@ -5,10 +5,19 @@ assertSessionUserRole = (req, role) =>
   && req.session.user.role === role
 
 module.exports = (req, res, next) => {
-  console.log(res.locals.renderParams)
+  
   res.render(res.locals.view, {
+    
+    // response data
+    ...(res.locals.response && res.locals.response.message),
+    
+    // additional render parameters
     ...res.locals.renderParams,
+
+    // authenticated information
     authenticated: req.session && req.session.authenticated || false,
+
+    // user information
     user: {
       ...req.session && req.session.user,
       role: {
@@ -16,6 +25,9 @@ module.exports = (req, res, next) => {
         manager : assertSessionUserRole(req, 'manager'),
         basic   : assertSessionUserRole(req, 'basic'),
       }
-    }
+    },
+
+    // csrf token
+    csrfToken: req.csrfToken()
   })
 }

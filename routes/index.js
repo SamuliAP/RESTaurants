@@ -6,7 +6,7 @@ const router  = express.Router()
  * /api will dispatch with response.send()
  * / will dispatch with response.render()
  */
- router.use('/api', require('./api'))
- router.use('/'   , require('./views'))
+router.use('/api', require('./api'))
+router.use('/'   , require('./views'))
 
 module.exports = router

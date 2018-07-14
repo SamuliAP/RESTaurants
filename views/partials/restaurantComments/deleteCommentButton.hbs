@@ -1,4 +1,5 @@
 <form action="/comments/{{id}}/delete" method="POST" class="secondary-content">
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
   <input type="hidden" value={{restaurant}} name="restaurant">
   <button class="btn-floating btn-flat waves-effect waves-light red" type="submit">
     <i class="material-icons">delete</i>

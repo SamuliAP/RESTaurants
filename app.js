@@ -1,25 +1,26 @@
 // ------------------------------------
 // External modules
 // ------------------------------------
+
+// provide access to process.env
 require('dotenv').config()
-const express          = require('express')
-const helmet           = require('helmet')
-const bodyParser       = require('body-parser')
-const expressSanitizer = require('express-sanitizer')
-const session          = require('express-session')
-const csurf            = require('csurf')
+
+const express          = require('express'),
+      helmet           = require('helmet'),
+      bodyParser       = require('body-parser'),
+      expressSanitizer = require('express-sanitizer'),
+      session          = require('express-session'),
+      csurf            = require('csurf')
 
 // ------------------------------------
 // Internal modules
 // ------------------------------------
-const routes          = require('./routes')
-const { mongoose }    = require('./database')
-const { hbs }         = require('./viewEngine');
-const envVarValidator = require('./utils/envVarValidator')
-const {
-  xssMiddleware,
-  noSqlMiddleware
-} = require('./middleware')
+const routes          = require('./routes'),
+      { mongoose }    = require('./database'),
+      { hbs }         = require('./viewEngine'),
+      { error }       = require('./controllers/apiControllers/responses'),
+      envVarValidator = require('./utils/envVarValidator'),
+      { xssMiddleware, noSqlMiddleware } = require('./middleware')
 
 // Application port
 const PORT = process.env.PORT || 3000
@@ -44,8 +45,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(helmet())
 app.use(expressSanitizer())
 
+// session
 let sess = {
-  secret: 'extremely secretive secret',
+  secret: 'extremely 9aYN9Alkjl secretive kkjfang665 secret J34KkMM',
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -61,23 +63,43 @@ if (process.env.NODE_ENV === 'production' ) {
 }
 
 app.use(session(sess))
-//app.use(csurf()) TODO TÄMÄ PÄÄLLE 
+
+// csrf-protection
+app.use(csurf())
 
 // ------------------------------------
 // Custom application level middleware
 // ------------------------------------
+// sanitize all request bodies, request URI:s are sanitized in specific routes
 app.use(xssMiddleware.sanitizeBody)
 app.use(noSqlMiddleware.sanitizeBody)
 
 // ------------------------------------
-// API routes, registered in order of the routes -array
+// App routes, registered in order of the routes -array
 // ------------------------------------
+
+// catch errors caused by application middelware before routes
+app.use((err, req, res, next) => {
+
+  // unknown error, respond with server error
+  if (err.code !== 'EBADCSRFTOKEN') {
+    error.create(res, next, error.type.SERVER)  
+  }
+
+  // error thrown by csurf, invalid csrf-token
+  error.create(res, next, error.type.NOTPERMITTED, {
+    message: "invalid csrf-token received"
+  })
+})
+
 app.use(routes)
 
 // ------------------------------------
 // connect to database and start listening only if the environment is configured correctly
 // ------------------------------------
 if(envVarValidator.validate()) {
-  mongoose.connect()
-  app.listen(PORT, console.log(`The server is listening in port ${PORT}`))
+  let db = mongoose.connect()
+
+  // start listening once database is connected
+  db.once('open', () => app.listen(PORT, console.log(`The server is listening in port ${PORT}`)))
 }

@@ -3,6 +3,7 @@
     <h4>Update Comment</h4>
   </label>
   <form class="col s12" action="/comments/{{data._id}}" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="row">
       <div class="input-field col s12">
         <textarea placeholder={{data.comment}} name="comment" id="textarea1" class="materialize-textarea"></textarea>

@@ -5,6 +5,7 @@
     <p>( GDPR Ahoy! )</p>
   </label>
   <form class="col s12" action="/users/{{data.id}}/delete" method="POST">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="row">
       <div class="input-field">
         <button class="btn btn-flat waves-effect waves-light" type="submit" name="action">Delete
