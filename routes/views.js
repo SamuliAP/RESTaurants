@@ -43,6 +43,7 @@ const initRenderParams = (req, res, next) => {
   next()
 }
 
+// View route stack, meant for rendering to hbs
 router.use('/', errorCheck)
 router.use('/', initRenderParams)
 router.use('/', routes)
@@ -50,7 +51,6 @@ router.use('/', viewRoutes)
 router.use('/', forceLogin)
 router.use('/', notFound)
 
-// app route stack, meant for rendering to hbs
 module.exports = [
   router,
   render

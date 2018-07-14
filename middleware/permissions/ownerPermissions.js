@@ -10,7 +10,7 @@ isOwner = Model => (req, res, next) => {
   }
   Model.findOne(query, (err, doc) => {
     if(err || !doc) {
-      return error.create(res, next, error.type.UNAUTHORIZED) 
+      return error.create(res, next, error.type.NOTPERMITTED) 
     }
 
     return next()

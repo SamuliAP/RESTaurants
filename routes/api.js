@@ -15,10 +15,20 @@ const notFound = (req,res,next) => {
   next()
 }
 
+// check for errors created before the main route stack
+const errorCheck = (req, res, next) => {
+
+  if(res.locals.success === false) {
+    return send(req, res, next)
+  }
+  next()
+}
+
+// the API route stack, meant for sending responses trough HTTP
+// router.use('/', errorCheck) TODO csrf checkille jotain
 router.use('/', routes)
 router.use('/', notFound)
 
-// the API route stack, meant for sending responses trough HTTP
 module.exports = [
   router,
   send
