@@ -1,2 +1,3 @@
 .env
 npm run initialize
+janky textareas in templates

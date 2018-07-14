@@ -2,8 +2,9 @@
   <i class="material-icons circle cyan darken-2">comment</i>
   <b class="title"> {{owner.email}} </b>
   | <label> {{formatDate updatedAt}} </label>
-  <p>{{comment}}</p>
-  {{#ifEquals owner._id user.id}}
+  <p class="comment-content" >{{comment}}</p>
+  {{#ifEqualsOr owner._id user.id user.role.admin}}
+    {{>restaurantComments/goToCommentPageButton}}
     {{>restaurantComments/deleteCommentButton}}
-  {{/ifEquals}}
+  {{/ifEqualsOr}}
 </li>

@@ -8,3 +8,8 @@ exports.redirectToRestaurantComments = (req, res, next) => {
   res.locals.view = 'restaurantComments'
   next()
 }
+
+exports.getCommentView = (req, res, next) => {
+  res.locals.view = 'comment'
+  next()
+}

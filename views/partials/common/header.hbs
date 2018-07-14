@@ -1,7 +1,7 @@
-<nav class="header">
+<nav class="header deep-purple darken-1">
   <div class="nav-wrapper">
     <a href="/"> 
-      <h4 class="brand-logo">RESTaurants</h4> 
+      <h4 class="brand-logo header-title">RESTaurants</h4> 
     </a>
     <ul class="right hide-on-med-and-down">
       {{!-- User management button --}}
@@ -13,7 +13,7 @@
       {{!-- User page button --}}
       {{#if authenticated}}
         <li>
-          <a class="btn-floating btn-medium waves-effect waves-light" href="/users/{{user.id}}">
+          <a class="btn-floating btn-medium waves-effect waves-light btn-flat" href="/users/{{user.id}}">
             <i class="material-icons">account_box</i>
           </a>
         </li>
@@ -22,10 +22,10 @@
         {{!-- Login / Logout button  --}}
         {{#if authenticated}}
           <form action="/logout" method="POST">
-            <button id="logout" class="navbar-button right waves-effect waves-light btn">Logout</button>
+            <button id="logout" class="navbar-button right waves-effect waves-light btn btn-flat header-button">Logout</button>
           </form>
         {{else}}
-          <button id="login" class="navbar-button right waves-effect waves-light btn">Login</button>
+          <button id="login" class="navbar-button right waves-effect waves-light btn btn-flat header-button">Login</button>
         {{/if}}
       </li>
     </ul>

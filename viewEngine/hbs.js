@@ -20,4 +20,8 @@ exports.initialize = (app) => {
   hbs.registerHelper('ifEquals', function(item1, item2, options) {
     return item1 == item2 ? options.fn(this) : options.inverse(this) 
   })
+
+  hbs.registerHelper('ifEqualsOr', function(item1, item2, item3, options) {
+    return item1 == item2 ? options.fn(this) : item3 ? options.fn(this) : options.inverse(this) 
+  })
 }

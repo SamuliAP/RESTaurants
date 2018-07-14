@@ -5,13 +5,13 @@
   <form class="col s12" action="/comments" method="POST">
     <div class="row">
       <div class="input-field col s12">
-        <input name="comment" type="text" class="validate">
-        <label for="comment">Comment</label>
+        <textarea name="comment" id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Comment</label>
       </div>
     </div>
     <input name="restaurant" type="hidden" value={{restaurantId}}>
     <div class="row">
-      <button class="btn waves-effect waves-light" type="submit" name="action">Create
+      <button class="btn btn-flat waves-effect waves-light" type="submit" name="action">Create
         <i class="material-icons right">send</i>
       </button>
     </div>

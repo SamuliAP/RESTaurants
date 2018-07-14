@@ -51,3 +51,19 @@ main {
   top:16px;
   right:128px
 }
+
+.header-title {
+  margin: 14px
+}
+
+.btn-flat {
+  color:black;
+} 
+
+.header-button {
+  color: white;
+}
+
+.comment-content {
+  margin-right: 100px !important;
+}
