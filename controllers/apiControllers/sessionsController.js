@@ -4,8 +4,20 @@ const bcrypt             = require('bcryptjs')
 
 // create session
 exports.createSession = (req, res, next) => {
-  // TODO: basic auth encryption
-  let email = req.body.email
+
+  // handle basic authentication decoding
+  let authHeader = req.headers.authorization
+  if (authHeader === undefined) {
+    res.header('WWW-Authenticate', 'Basic realm="Authorization required"');
+    return error.create(res, next, error.type.UNAUTHORIZED)
+  }
+
+  let encoded  = authHeader.split(' ')[1]
+  let decoded  = new Buffer(encoded, 'base64').toString()
+  let email    = decoded.split(':')[0]
+  let password = decoded.split(':')[1]
+
+  // authenticate
   User.findOne({ email }, (err, user) => {
     if(err) {
       req.session.authenticated = false
@@ -15,7 +27,7 @@ exports.createSession = (req, res, next) => {
       req.session.authenticated = false
       return error.create(res, next, error.type.UNAUTHORIZED) 
     }
-    bcrypt.compare(req.body.password, user.password, (err, status) => {
+    bcrypt.compare(password, user.password, (err, status) => {
       if(err || !status) { 
         req.session.authenticated = false
         return error.create(res, next, error.type.UNAUTHORIZED) 
