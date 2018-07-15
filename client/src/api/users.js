@@ -1,7 +1,7 @@
 import { get, post } from './api'
 
 // GET all users
-export const fetchUsers = () => get('/users')
+export const fetchUsers = options => get('/users', options)
 
 // POST a new user
-export const createUser = body => post('/users', { body })
+export const createUser = options => post('/users', options)

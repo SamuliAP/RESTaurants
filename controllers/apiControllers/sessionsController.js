@@ -11,7 +11,7 @@ exports.createSession = (req, res, next) => {
     res.header('WWW-Authenticate', 'Basic realm="Authorization required"');
     return error.create(res, next, error.type.UNAUTHORIZED)
   }
-
+  
   let encoded  = authHeader.split(' ')[1]
   let decoded  = new Buffer(encoded, 'base64').toString()
   let email    = decoded.split(':')[0]

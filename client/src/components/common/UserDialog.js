@@ -6,8 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const CreateUserDialog = props => {
-  const { open, handleClose, handleSubmit, handleInputChange } = props
+const UserDialog = props => {
+  const { 
+    title, 
+    submitName, 
+    open, 
+    handleClose, 
+    handleSubmit, 
+    handleInputChange 
+  } = props
 
   return (
     <Dialog
@@ -15,7 +22,7 @@ const CreateUserDialog = props => {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Create User</DialogTitle>
+      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent className="dialog-content">
         <TextField
           name="email"
@@ -37,24 +44,16 @@ const CreateUserDialog = props => {
           onChange={handleInputChange}
         />
       </DialogContent>
-      <DialogContent className="dialog-content">
-        <TextField
-          label="Password Again"
-          type="password"
-          fullWidth
-          margin="dense"
-        />
-      </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
         <Button onClick={handleSubmit} color="primary">
-          Create
+          {submitName}
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 
-export default CreateUserDialog
+export default UserDialog

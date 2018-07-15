@@ -16,6 +16,7 @@ const dispatchRequest = method => (uri, options = {}) => {
   if(options.body) {
     options.body = JSON.stringify(options.body)
   }
+  
   return fetch(uri, options)
 }
 

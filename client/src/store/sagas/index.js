@@ -1,12 +1,13 @@
 import createSagaMiddleware from 'redux-saga'
 
-import { watchFetchUsers, watchCreateUser } from './users'
+import { watchUsers } from './users'
+import { watchSession } from './session'
 
 const sagaMiddleware = createSagaMiddleware()
 
 export const runSagas = () => {
-  sagaMiddleware.run(watchFetchUsers)
-  sagaMiddleware.run(watchCreateUser)
+  sagaMiddleware.run(watchUsers)
+  sagaMiddleware.run(watchSession)
 } 
 
 export default sagaMiddleware

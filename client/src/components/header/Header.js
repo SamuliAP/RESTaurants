@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Logo from './Logo'
 import UserButton from './UserButton'
 import CreateUserContainer from './createUser/CreateUserContainer'
+import LoginContainer from './login/loginContainer'
 import '../../assets/css/header.css'
 
 const Header = props => {
@@ -15,7 +16,12 @@ const Header = props => {
         <Toolbar>
           <Logo />
           {auth && <UserButton />}
-          {!auth && <CreateUserContainer />}
+          {!auth && 
+            <div>
+              <CreateUserContainer /> 
+              <LoginContainer />
+            </div>
+          }
         </Toolbar>
       </AppBar>
     </div>
