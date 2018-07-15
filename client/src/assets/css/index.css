@@ -1,5 +1,17 @@
+html, body, .root, .app {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: roboto;
+}
+
+.content {
+  min-height: 100%;
+}
+
+.dialog-content {
+  min-width: 500px;
 }

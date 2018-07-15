@@ -1,20 +1,14 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest } from "redux-saga/effects";
 
-import { FETCH_USERS, API_SUCCESS, API_FAILURE} from '../actionTypes'
-import { fetchUsers } from '../../api'
+import { apiWorker } from './workers'
+import { FETCH_USERS, CREATE_USER } from '../actionTypes'
+import { fetchUsers, createUser } from '../../api'
 
-export function* watchFetchDog() {
-  yield takeLatest(FETCH_USERS, workerFetchUsers)
+// watchers
+export function* watchFetchUsers() {
+  yield takeLatest(FETCH_USERS, apiWorker, fetchUsers)
 }
 
-function* workerFetchUsers() {
-  try {
-    const response = yield call(fetchUsers)
-    const responseData = response.json()
-    const users = responseData.data
-
-    yield put({ type: API_SUCCESS, users})
-  } catch(errors) {
-    yield put({ type:API_FAILURE, errors })
-  }
+export function* watchCreateUser() {
+  yield takeLatest(CREATE_USER, apiWorker, createUser)
 }
