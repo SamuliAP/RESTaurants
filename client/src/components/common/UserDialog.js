@@ -6,6 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import Errors from './Errors'
+
 const UserDialog = props => {
   const { 
     title, 
@@ -13,46 +15,54 @@ const UserDialog = props => {
     open, 
     handleClose, 
     handleSubmit, 
-    handleInputChange 
+    handleInputChange,
+    errors
   } = props
-
+  console.log(errors)
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
-      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-      <DialogContent className="dialog-content">
-        <TextField
-          name="email"
-          autoFocus
-          label="Email"
-          type="email"
-          fullWidth
-          margin="normal"
-          onChange={handleInputChange}
-        />
-      </DialogContent>
-      <DialogContent className="dialog-content">
-        <TextField
-          name="password"
-          label="Password"
-          type="password"
-          fullWidth
-          margin="dense"
-          onChange={handleInputChange}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} color="primary">
-          {submitName}
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+        {errors && errors.length > 0 && 
+          <DialogContent className="dialog-content">
+            <Errors errors={errors} />
+          </DialogContent>
+        }
+        <DialogContent className="dialog-content">
+          <TextField
+            name="email"
+            autoFocus
+            label="Email"
+            type="email"
+            fullWidth
+            margin="normal"
+            onChange={handleInputChange}
+          />
+        </DialogContent>
+        <DialogContent className="dialog-content">
+          <TextField
+            name="password"
+            label="Password"
+            type="password"
+            fullWidth
+            margin="dense"
+            onChange={handleInputChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            {submitName}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   )
 }
 

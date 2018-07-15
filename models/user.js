@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
   email: {
     type     : String,
     required : '{PATH} is required!',
-    unique   : 'Expected {PATH} to be unique. Value: "{VALUE}".'
+    unique   : 'User with email "{VALUE}" already exists!'
   },
   password: {
     type     : String,

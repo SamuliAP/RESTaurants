@@ -15,3 +15,10 @@ body {
 .dialog-content {
   min-width: 500px;
 }
+
+.errors {
+  padding: 20px 10px;
+  text-align: center;
+  background-color: #cc0000 !important;
+  color: whitesmoke;
+}

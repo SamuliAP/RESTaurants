@@ -8,7 +8,7 @@ const restaurantSchema = mongoose.Schema({
   name: {
     type     : String,
     required : '{PATH} is required!',
-    unique   : 'Expected {PATH} to be unique. Value: "{VALUE}".'
+    unique   : 'Restaurant with name "{VALUE}" already exists!'
   },
   address: {
     type     : String,

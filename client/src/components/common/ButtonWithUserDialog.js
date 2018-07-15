@@ -26,15 +26,27 @@ class ButtonWithUserDialog extends Component {
   }
 
   render() {
-    const { dialogOpen } = this.state
-    const { className, buttonClassName, openButtonName, dialogSubmitName } = this.props
+    let { dialogOpen } = this.state
+    const { 
+      className, 
+      buttonClassName, 
+      openButtonName, 
+      dialogSubmitName,
+      dialogErrors,
+      dialogLoading
+    } = this.props
+
+    dialogOpen = dialogLoading ? true : dialogOpen
+
     return (
       <div className={className}>
         <FlatButton className={buttonClassName} content={openButtonName} handleClick={this.handleClickDialogOpen} />
         <UserDialog
+          errors={dialogErrors}
           title={openButtonName}
           submitName={dialogSubmitName} 
-          open={dialogOpen} 
+          open={dialogOpen}
+          loading={dialogLoading}
           handleClose={this.handleDialogClose} 
           handleSubmit={this.handleDialogSubmit} 
           handleInputChange={this.handleInputChange}  

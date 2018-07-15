@@ -20,7 +20,9 @@ export class LoginContainer extends Component {
       openButtonName: "Login",
       dialogSubmitName: "Login",
       className: 'header-content',
-      buttonClassName: 'header-content'
+      buttonClassName: 'header-content',
+      dialogErrors: this.props.errors,
+      dialogLoading: this.props.fetching
     }
     return <ButtonWithUserDialog {...props} />
   }
