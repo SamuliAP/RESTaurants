@@ -39,7 +39,7 @@ exports.createSession = (req, res, next) => {
       }
       req.session.authenticated = true
       req.session.user = user
-      return success.create(req, res, next, success.type.OK, { id: req.session.id })
+      return success.create(req, res, next, success.type.OK)
     })
   })
 }

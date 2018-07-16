@@ -14,6 +14,7 @@ const RestaurantsListRow = props => {
         <Typography >{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
+        asd
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

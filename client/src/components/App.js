@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { sessionActionCreators } from '../store/actions'
+
 import Header from './header/Header'
 import Footer from './footer/Footer'
 import RestaurantsListContainer from './restaurants/restaurantsList/RestaurantsListContainer'
@@ -22,7 +22,6 @@ class App extends Component {
   logout = () => this.props.actions.deleteSession()
 
   render() {
-    console.log(this.props.fetching)
     return (
       <div className="app">
         <Header auth={this.props.authenticated} toProfilePage={this.navigate} logout={this.logout} />
