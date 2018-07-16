@@ -12,7 +12,6 @@ export class LoginContainer extends Component {
       authorization: 'Basic ' + btoa(params.email + ':' + params.password)
     }
   })
-  
 
   render() {
     const props = {

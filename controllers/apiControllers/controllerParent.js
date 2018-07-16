@@ -17,19 +17,19 @@ exports.findAll = (Model, queryParams = {}) => (req, res, next) => {
   }
 
   Model.find(query, (err, data) => {
-    if(err)              { return error.create(res, next, error.type.MONGOOSE, err) } 
+    if(err)              { return error.create(req, res, next, error.type.MONGOOSE, err) } 
     else if(!data || 
-      data.length === 0) { return error.create(res, next, error.type.NOTFOUND) } 
-    else                 { return success.create(res, next, success.type.OK, data) }
+      data.length === 0) { return error.create(req, res, next, error.type.NOTFOUND) } 
+    else                 { return success.create(req, res, next, success.type.OK, data) }
   })
 }
 
 // Find a model document by id fetched from the URI parameter "id"
 exports.findById = Model => (req, res, next) => {
   Model.findById(req.params.id, (err, data) => {
-    if(err)        { return error.create(res, next, error.type.MONGOOSE, err) } 
-    else if(!data) { return error.create(res, next, error.type.NOTFOUND) } 
-    else           { return success.create(res, next, success.type.OK, data) }
+    if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) } 
+    else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
+    else           { return success.create(req, res, next, success.type.OK, data) }
   })
 }
 
@@ -47,10 +47,10 @@ exports.create = (Model, props = {}) => (req, res, next) => {
   }
 
   Model.create(params, (err, data) => {
-    if(err)              { return error.create(res, next, error.type.MONGOOSE, err) }
+    if(err)              { return error.create(req, res, next, error.type.MONGOOSE, err) }
     else if(!data || 
-      data.length === 0) { return error.create(res, next, error.type.SERVER) }  
-    else                 { return success.create(res, next, success.type.CREATED, data) }
+      data.length === 0) { return error.create(req, res, next, error.type.SERVER) }  
+    else                 { return success.create(req, res, next, success.type.CREATED, data) }
   })
 }
 
@@ -72,17 +72,17 @@ exports.update = (Model, props = {}) => (req, res, next) => {
     runValidators: true,
     context: 'query'
   }, (err, data) => {
-    if(err)        { return error.create(res, next, error.type.MONGOOSE, err) }
-    else if(!data) { return error.create(res, next, error.type.NOTFOUND) } 
-    else           { return success.create(res, next, success.type.OK, data) }
+    if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) }
+    else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
+    else           { return success.create(req, res, next, success.type.OK, data) }
   })
 }
 
 // Delete a model document by id fetched from the URI parameter "id"
 exports.delete = Model => (req, res, next) => {
   Model.findByIdAndRemove(req.params.id, (err, data) => {
-    if(err)        { return error.create(res, next, error.type.MONGOOSE, err) }
-    else if(!data) { return error.create(res, next, error.type.NOTFOUND) } 
-    else           { return success.create(res, next, success.type.OK, data) }
+    if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) }
+    else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
+    else           { return success.create(req, res, next, success.type.OK, data) }
   })
 }

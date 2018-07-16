@@ -6,7 +6,7 @@ isAdmin = (req, res, next) => {
   User.findById(req.session.user.id, (err, user) => {
 
     if(err || !user || user.role !== 'admin') { 
-      return error.create(res, next, error.type.NOTPERMITTED) 
+      return error.create(req, res, next, error.type.NOTPERMITTED) 
     }
     
     return next()
@@ -17,7 +17,7 @@ isAdmin = (req, res, next) => {
 exports.uriIdIsUser = (req, res, next) => 
   req.params.id === req.session.user.id
     ? next()
-    : error.create(res, next, error.type.NOTPERMITTED) 
+    : error.create(req, res, next, error.type.NOTPERMITTED) 
 
 
 // Check whether URI parameter 'id' is the same as the current session user id OR current session user is admin

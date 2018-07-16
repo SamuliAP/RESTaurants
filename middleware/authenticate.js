@@ -5,7 +5,7 @@ const { User }  = require('../models')
 exports.authenticate = (req, res, next) => 
 req.session && req.session.authenticated 
     ? userExists(req, res, next)
-    : error.create(res, next, error.type.UNAUTHORIZED)
+    : error.create(req, res, next, error.type.UNAUTHORIZED)
 
 
 userExists = (req, res, next) => {
@@ -14,7 +14,7 @@ userExists = (req, res, next) => {
     // on error / user not found, set authenticated to false and return an error
     if(err || !user) { 
       req.session.authenticated = false
-      return error.create(res, next, error.type.UNAUTHORIZED) 
+      return error.create(req, res, next, error.type.UNAUTHORIZED) 
     }
 
     return next()

@@ -3,7 +3,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 const UserButtonMenu = props => {
-  const { handleClose, anchorEl, open } = props
+  const { handleClose, toProfilePage, logout, anchorEl, open } = props
   return (
     <Menu
       id="menu-appbar"
@@ -19,8 +19,8 @@ const UserButtonMenu = props => {
       open={open}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClose}>Profile</MenuItem>
-      <MenuItem onClick={handleClose}>My account</MenuItem>
+      <MenuItem name="profile" onClick={toProfilePage}>Profile</MenuItem>
+      <MenuItem name="logout" onClick={logout}>Logout</MenuItem>
     </Menu>
   )
 }

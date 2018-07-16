@@ -7,12 +7,13 @@ class ButtonWithUserDialog extends Component {
 
   state = {
     dialogOpen: false,
+    submitted: true,
     email: "",
     password: ""
   }
 
   handleClickDialogOpen = () => this.setState({ dialogOpen: true  });
-  handleDialogClose     = () => this.setState({ dialogOpen: false });
+  handleDialogClose     = () => this.setState({ dialogOpen: false, submitted: false});
   handleInputChange     = e  => this.setState({
     [e.target.name]: e.target.value
   })
@@ -23,10 +24,14 @@ class ButtonWithUserDialog extends Component {
       email: this.state.email,
       password: this.state.password
     })
+    this.setState({
+      submitted: true,
+      dialogOpen: false
+    })
   }
 
   render() {
-    let { dialogOpen } = this.state
+    const { dialogOpen, submitted } = this.state
     const { 
       className, 
       buttonClassName, 
@@ -36,7 +41,15 @@ class ButtonWithUserDialog extends Component {
       dialogLoading
     } = this.props
 
-    dialogOpen = dialogLoading ? true : dialogOpen
+    let open = dialogLoading 
+      ? true 
+      : dialogOpen
+        ? true
+        : submitted
+          ? dialogErrors.length > 0
+            ? true
+            : false
+          :false
 
     return (
       <div className={className}>
@@ -45,7 +58,7 @@ class ButtonWithUserDialog extends Component {
           errors={dialogErrors}
           title={openButtonName}
           submitName={dialogSubmitName} 
-          open={dialogOpen}
+          open={open}
           loading={dialogLoading}
           handleClose={this.handleDialogClose} 
           handleSubmit={this.handleDialogSubmit} 

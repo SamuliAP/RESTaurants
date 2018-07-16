@@ -11,7 +11,7 @@ const routes = require('./routes')
 const notFound = (req,res,next) => {
   // create response only if one has not yet been created
   if(res.locals.response === undefined) {
-    return error.create(res, next, error.type.NOTFOUND)
+    return error.create(req, res, next, error.type.NOTFOUND)
   }
   next()
 }

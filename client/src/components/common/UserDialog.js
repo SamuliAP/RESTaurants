@@ -18,7 +18,7 @@ const UserDialog = props => {
     handleInputChange,
     errors
   } = props
-  console.log(errors)
+
   return (
     <div>
       <Dialog

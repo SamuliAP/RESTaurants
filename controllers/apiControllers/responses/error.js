@@ -87,7 +87,7 @@ exports.type = {
 //   message: "An error has happened", 
 //   type: "ErrorHappenedError"
 // }
-exports.create = (res, next, type, errObject = {}) => {
+exports.create = (req, res, next, type, errObject = {}) => {
 
   message = type.message(errObject)
   code    = type.code

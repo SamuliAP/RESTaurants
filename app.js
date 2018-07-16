@@ -68,8 +68,13 @@ app.use(session(sess))
 // csrf-protection
 app.use(csurf())
 
-// allow origins, need to do this for the react client
-app.use(cors())
+// use cors for development environments, because react development server is ran in a different port
+if(process.env.NODE_ENV === 'development') {
+  app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3001' // <- react dev server URL
+  }));
+}
 
 // ------------------------------------
 // Custom application level middleware
@@ -87,11 +92,11 @@ app.use((err, req, res, next) => {
 
   // unknown error, respond with server error
   if (err.code !== 'EBADCSRFTOKEN') {
-    error.create(res, next, error.type.SERVER)  
+    error.create(req, res, next, error.type.SERVER)  
   }
 
   // error thrown by csurf, invalid csrf-token
-  error.create(res, next, error.type.NOTPERMITTED, {
+  error.create(req, res, next, error.type.NOTPERMITTED, {
     message: "invalid csrf-token received"
   })
 })

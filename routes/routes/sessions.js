@@ -6,6 +6,9 @@ const { authMiddleware     } = require('../../middleware')
 
 // ------------------------------------
 
+// GET session (use for authentication)
+router.get('/session', authMiddleware.authenticate, sessionsController.getSession)
+
 // POST a new session (log in)
 router.post('/session', sessionsController.createSession)
 

@@ -6,7 +6,7 @@ exports.hasRole = role => (req, res, next) => {
   User.findById(req.session.user.id, (err, user) => {
 
     if(err || !user || user.role !== role) { 
-      return error.create(res, next, error.type.NOTPERMITTED) 
+      return error.create(req, res, next, error.type.NOTPERMITTED) 
     }
     
     return next()
@@ -18,7 +18,7 @@ exports.isAdminOrHasRole = role => (req, res, next) => {
   User.findById(req.session.user.id, (err, user) => {
 
     if(err || !user || (user.role !== role && user.role !== 'admin')) { 
-      return error.create(res, next, error.type.NOTPERMITTED) 
+      return error.create(req, res, next, error.type.NOTPERMITTED) 
     }
     
     return next()

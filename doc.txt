@@ -3,4 +3,5 @@ npm run initialize
 janky textareas in templates
 saga overkill but treated as a learning exercise (for work)
 no boilerplates used
-container-component architecture
+container/component aka smart/dumb component aka container/presentational component architecture
+remember to enable cookies in browser

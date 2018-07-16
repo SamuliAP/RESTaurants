@@ -9,8 +9,17 @@ const dispatchRequest = method => (uri, options = {}) => {
   // HTTP-method
   options = {...options, method: method}
 
+  // send cookies
+  options.credentials = 'include'
+
   // set content-type -header
   options.headers = {...(options.headers), 'content-type': 'application/json'}
+
+  // get authentication token from sessionstorage if it's not explicitly set
+  let authToken = sessionStorage.getItem("auth")
+  if(authToken && !options.headers.authorization) {
+    options.headers.authorization = authToken
+  }
 
   // stringify body object
   if(options.body) {

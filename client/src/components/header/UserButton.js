@@ -17,6 +17,18 @@ export class UserButton extends Component {
     this.setState({ anchorEl: null });
   };
 
+  toProfilePage = () => {
+    this.setState({
+      anchorEl: null
+    }, this.props.toProfilePage)
+  }
+
+  logout = () => {
+    this.setState({
+      anchorEl: null
+    }, this.props.logout)
+  }
+
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
@@ -31,7 +43,13 @@ export class UserButton extends Component {
         >
           <AccountCircle />
         </IconButton>
-        <UserButtonMenu handleClose={this.handleClose} anchorEl={anchorEl} open={open}/>
+        <UserButtonMenu 
+          logout={this.logout}
+          toProfilePage={this.toProfilePage}
+          handleClose={this.handleClose} 
+          anchorEl={anchorEl} 
+          open={open}
+        />
       </div>
     )
   }

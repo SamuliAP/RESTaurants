@@ -3,8 +3,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Loading = () => {
   return (
-    <div>
-      <CircularProgress />
+    <div class="loading">
+      <CircularProgress  />
     </div>
   )
 }

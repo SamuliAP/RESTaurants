@@ -17,7 +17,7 @@ exports.type = {
   }
 }
 
-exports.create = (res, next, type, successObject = {status: "success"}) => {
+exports.create = (req, res, next, type, successObject = {status: "success"}) => {
   message = type.message(successObject)
   code    = type.code
   
@@ -27,5 +27,9 @@ exports.create = (res, next, type, successObject = {status: "success"}) => {
   }
   res.locals.success = true
 
+  // refresh session on success
+  if(req.session) {
+    req.session.touch()
+  }
   next()
 }
