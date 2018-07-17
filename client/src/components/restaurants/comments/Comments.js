@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import DeleteCommentButton from './DeleteCommentButton'
 import Errors from '../../common/Errors'
+import Comment from './Comment'
 import '../../../assets/css/restaurants.css'
 
 export class Comments extends Component {
@@ -28,13 +28,6 @@ export class Comments extends Component {
   }
 
   deleteComment = id => this.props.deleteComment(id)
-
-  getDeleteButton = (comment, user) => {
-    if(comment.owner._id === user._id || user.role === 'admin') {
-      return true
-    }
-    return false
-  }
   
   render() {
     const { comments, restaurant, errors, user } = this.props
@@ -45,26 +38,8 @@ export class Comments extends Component {
         </ExpansionPanelDetails>
         {comments.map(comment => 
           comment.restaurant === restaurant
-            ? (
-              <div key={comment.id}>
-                <Divider/>
-                <ExpansionPanelDetails className="flex-grid">
-                <div className="col-10" style={{display: 'inline-flex'}}>
-                  <Typography style={{padding: '0 10px'}} variant="subheading" >{comment.owner.email}</Typography> | 
-                  <Typography style={{marginTop:"2px",padding: '0 10px'}}>
-                    {new Date(comment.updatedAt).toLocaleDateString()}
-                  </Typography>
-                  <Typography style={{marginTop:"2px"}}>
-                    {new Date(comment.updatedAt).toLocaleTimeString()}
-                  </Typography>
-                </div>
-                <div className="col-2">
-                {this.getDeleteButton(comment, user) && <DeleteCommentButton comment={comment.id} deleteComment={this.deleteComment}/>}
-                </div>
-                <Typography className="col-12" style={{wordWrap:'break-word', width: "100%", marginLeft:"11px"}}>{comment.comment}</Typography>
-                </ExpansionPanelDetails>
-              </div>
-            ) : ""
+            ? <Comment key={comment.id} deleteComment={this.deleteComment} comment={comment} user={user} /> 
+            : ""
         )}
         <Divider/>
         {errors && errors.length > 0 && <Errors errors={errors}/>}

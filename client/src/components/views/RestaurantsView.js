@@ -11,7 +11,7 @@ const RestaurantsView = props => {
   return (
     <div>
       <Title title="Restaurants"/>
-      {showCreateRestaurant && <CreateRestaurantContainer />}
+      {showCreateRestaurant() && <CreateRestaurantContainer />}
       <RestaurantsListContainer />
     </div>
   )

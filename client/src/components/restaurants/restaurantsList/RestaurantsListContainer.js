@@ -10,12 +10,19 @@ export class RestaurantsListContainer extends Component {
   componentDidMount() {
     this.props.actions.fetchRestaurants()
   }
+
+  deleteRestaurant = id => this.props.actions.deleteRestaurant(id)
+
   render() {
-    return <RestaurantsList restaurants={this.props.restaurants} />
+    return <RestaurantsList 
+      deleteRestaurant={this.deleteRestaurant} 
+      restaurants={this.props.restaurants} 
+      user={this.props.user}
+    />
   }
 }
 
-const mapStateToProps = state => ({ ...state.restaurantsReducer })
+const mapStateToProps = state => ({ ...state.restaurantsReducer, user: state.sessionReducer.user })
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(restaurantsActionCreators, dispatch)

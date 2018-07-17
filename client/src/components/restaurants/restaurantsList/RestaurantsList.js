@@ -4,7 +4,7 @@ import RestaurantsListRow from './RestaurantsListRow'
 import '../../../assets/css/restaurants.css'
 
 const SimpleExpansionPanel = props => {
-  const { restaurants } = props
+  const { restaurants, deleteRestaurant, user } = props
   return (
     <div className="restaurants-list">
       {restaurants.map((restaurant) => 
@@ -12,7 +12,10 @@ const SimpleExpansionPanel = props => {
           key={restaurant.id}
           name={restaurant.name}
           address={restaurant.address}
+          owner={restaurant.owner}
           id={restaurant.id}
+          deleteRestaurant={deleteRestaurant}
+          user={user}
         />
       )}
     </div>

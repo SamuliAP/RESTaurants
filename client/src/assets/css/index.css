@@ -68,3 +68,7 @@ body {
 .title {
   margin: 50px auto;
 }
+
+.delete {
+  color: #D50000;
+}
