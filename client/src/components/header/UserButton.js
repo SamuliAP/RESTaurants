@@ -41,7 +41,7 @@ export class UserButton extends Component {
           onClick={this.handleMenu}
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle className="header-svg"/>
         </IconButton>
         <UserButtonMenu 
           logout={this.logout}

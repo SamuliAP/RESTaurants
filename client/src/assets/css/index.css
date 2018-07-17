@@ -70,5 +70,9 @@ body {
 }
 
 .delete {
-  color: #D50000;
+  color: #dc7171;
+}
+
+svg {
+  color: #757575;
 }

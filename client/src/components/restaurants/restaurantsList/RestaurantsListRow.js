@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CommentsContainer from '../comments/CommentsContainer'
 import DeleteRestaurantButton from './DeleteRestaurantButton'
 import EditRestaurantButton from './EditRestaurantButton'
-import Errors from '../../common/Errors'
-import { TextField, Button, ExpansionPanelActions, ExpansionPanelDetails } from '@material-ui/core';
+import { TextField, Button, ExpansionPanelActions, ExpansionPanelDetails, Divider } from '@material-ui/core';
 
 class RestaurantsListRow extends React.Component {
 
@@ -104,8 +103,11 @@ class RestaurantsListRow extends React.Component {
         { editName && 
           <div>
             <ExpansionPanelDetails>
+              <Typography variant="display1"> Edit name </Typography>
+            </ExpansionPanelDetails>
+            <ExpansionPanelDetails>
               <TextField
-                className="list-column"
+
                 label="New Name"
                 name="newName"
                 fullWidth
@@ -126,10 +128,10 @@ class RestaurantsListRow extends React.Component {
         { editAddress && 
           <div>
             <ExpansionPanelDetails>
-              <div className="list-header-column"> </div>
+              <Typography variant="display1"> Edit Address </Typography>
+            </ExpansionPanelDetails>
+            <ExpansionPanelDetails>
               <TextField
-                className="list-header-column"
-                style={{marginRight:'30px'}}
                 label="New Address"
                 name="newAddress"
                 fullWidth
@@ -137,7 +139,6 @@ class RestaurantsListRow extends React.Component {
                 onChange={this.handleInputChange}
                 margin="normal"
               />
-              <div className="list-header-action-column"> </div>
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
               <Button size="small" onClick={this.handleExpand}>Cancel</Button>
