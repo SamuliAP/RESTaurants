@@ -10,6 +10,8 @@ body {
 
 .content {
   min-height: 100%;
+  width: 75%;
+  margin:auto auto 100px auto;
 }
 
 .dialog-content {
@@ -61,4 +63,8 @@ body {
   .flex-grid {
     display: block;
   }
+}
+
+.title {
+  margin: 50px auto;
 }

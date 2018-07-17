@@ -40,6 +40,9 @@ export class Comments extends Component {
     const { comments, restaurant, errors, user } = this.props
     return (
       <div>
+        <ExpansionPanelDetails className="flex-grid">
+          <Typography variant="display1"> Comments </Typography>
+        </ExpansionPanelDetails>
         {comments.map(comment => 
           comment.restaurant === restaurant
             ? (
