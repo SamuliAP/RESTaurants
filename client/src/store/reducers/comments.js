@@ -20,13 +20,13 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case FETCH_COMMENTS: return { ...state, fetching: true, errors: [] };
     case FETCH_COMMENTS_FAILURE: return { ...state, fetching: false, errors: action.errors };
-    case FETCH_COMMENTS_SUCCESS: return { ...state, fetching: false, comments: action.payload};
+    case FETCH_COMMENTS_SUCCESS: return { ...state, fetching: false, errors: [], comments: action.payload};
     case CREATE_COMMENT: return { ...state, fetching: true, errors: [] };
     case CREATE_COMMENT_FAILURE: return { ...state, fetching: false, errors: action.errors };
-    case CREATE_COMMENT_SUCCESS: return { ...state, fetching: false, comments: [...state.comments, action.payload]};
+    case CREATE_COMMENT_SUCCESS: return { ...state, fetching: false, errors: [], comments: [...state.comments, action.payload]};
     case DELETE_COMMENT: return { ...state, fetching: true, errors: [] };
     case DELETE_COMMENT_FAILURE: return { ...state, fetching: false, errors: action.errors };
-    case DELETE_COMMENT_SUCCESS: return { ...state, fetching: false, comments: state.comments.filter(val => {
+    case DELETE_COMMENT_SUCCESS: return { ...state, fetching: false, errors: [], comments: state.comments.filter(val => {
       return val._id !== action.payload._id
     })};
     default: return state

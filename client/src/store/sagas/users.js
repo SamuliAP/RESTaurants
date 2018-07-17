@@ -14,7 +14,19 @@ import { fetchUsers, createUser } from '../../api'
 // watchers
 export function* watchUsers() {
   yield all([
-    takeLatest(FETCH_USERS, apiWorker, fetchUsers, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE),
-    takeLatest(CREATE_USER, apiWorker, createUser, CREATE_USER_SUCCESS, CREATE_USER_FAILURE)
+    takeLatest(
+      FETCH_USERS, 
+      apiWorker, 
+      fetchUsers, 
+      FETCH_USERS_SUCCESS, 
+      FETCH_USERS_FAILURE
+    ),
+
+    takeLatest(CREATE_USER, 
+      apiWorker, 
+      createUser, 
+      CREATE_USER_SUCCESS, 
+      CREATE_USER_FAILURE
+    )
   ])
 }

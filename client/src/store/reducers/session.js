@@ -22,11 +22,11 @@ export default (state = initialState, action) => {
     case FETCH_SESSION: return { ...state, fetching: true, errors: [] };
     case CREATE_SESSION: return { ...state, fetching: true, errors: [] };
     case DELETE_SESSION: return { ...state, fetching: true, errors: [] };
-    case FETCH_SESSION_SUCCESS: return { ...state, authenticated: true, user: action.payload, fetching: false, };
+    case FETCH_SESSION_SUCCESS: return { ...state, authenticated: true, errors: [], user: action.payload, fetching: false, };
     case FETCH_SESSION_FAILURE: return { ...state, authenticated: false, fetching: false, };
-    case CREATE_SESSION_SUCCESS: return { ...state, authenticated: true, user: action.payload, fetching: false, };
+    case CREATE_SESSION_SUCCESS: return { ...state, authenticated: true, errors: [], user: action.payload, fetching: false, };
     case CREATE_SESSION_FAILURE: return { ...state, authenticated: false, fetching: false, errors: action.errors };
-    case DELETE_SESSION_SUCCESS: return { ...state, authenticated: false, fetching: false, };
+    case DELETE_SESSION_SUCCESS: return { ...state, authenticated: false, errors: [], fetching: false, };
     case DELETE_SESSION_FAILURE: return { ...state, fetching: false, authenticated: false, errors: action.errors };
     default: return state
   }

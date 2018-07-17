@@ -11,8 +11,32 @@
   margin-left: 320px;
 }
 
+.list-header-column {
+  flex-basis: 45%;
+  margin: auto;
+}
+
+.list-header-action-column {
+  flex-basis: 10%;
+}
+
+
 .list-column {
   flex-basis: 33%;
+  margin: auto;
+}
+
+.list-edit-column {
+  flex-basis: 12%;
+}
+
+.list-action-column {
+  flex-basis: 10%
+}
+
+.list-header-action, .list-action {
+  float: right;
+  margin-right: 15px !important;
 }
 
 .comment {

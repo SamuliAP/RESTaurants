@@ -13,11 +13,17 @@ export class RestaurantsListContainer extends Component {
 
   deleteRestaurant = id => this.props.actions.deleteRestaurant(id)
 
+  saveEditName = (body, id) => this.props.actions.updateRestaurantName({body}, id)
+  saveEditAddress = (body, id) => this.props.actions.updateRestaurantAddress({body}, id)
+
   render() {
     return <RestaurantsList 
+      saveEditName={this.saveEditName}
+      saveEditAddress={this.saveEditAddress}
       deleteRestaurant={this.deleteRestaurant} 
       restaurants={this.props.restaurants} 
       user={this.props.user}
+      errors={this.props.updateErrors}
     />
   }
 }

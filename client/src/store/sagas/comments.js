@@ -17,8 +17,25 @@ import { getComments, createComment, deleteComment } from '../../api'
 // watchers
 export function* watchComments() {
   yield all([
-    takeLatest(FETCH_COMMENTS, apiWorker, getComments, FETCH_COMMENTS_SUCCESS, FETCH_COMMENTS_FAILURE),
-    takeLatest(CREATE_COMMENT, apiWorker, createComment, CREATE_COMMENT_SUCCESS, CREATE_COMMENT_FAILURE),
-    takeLatest(DELETE_COMMENT, apiWorker, deleteComment, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE),
+    takeLatest(
+      FETCH_COMMENTS, 
+      apiWorker, 
+      getComments, 
+      FETCH_COMMENTS_SUCCESS, 
+      FETCH_COMMENTS_FAILURE
+    ),
+
+    takeLatest(CREATE_COMMENT, 
+      apiWorker, createComment, 
+      CREATE_COMMENT_SUCCESS, 
+      CREATE_COMMENT_FAILURE
+    ),
+
+    takeLatest(DELETE_COMMENT, 
+      apiWorker, 
+      deleteComment, 
+      DELETE_COMMENT_SUCCESS, 
+      DELETE_COMMENT_FAILURE
+    ),
   ])
 }

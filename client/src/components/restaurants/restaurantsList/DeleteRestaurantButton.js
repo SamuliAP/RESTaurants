@@ -4,9 +4,9 @@ import Delete from '@material-ui/icons/Delete'
 
 const DeleteRestaurantButton = props => {
   
-  const { deleteRestaurant } = props
+  const { handleClick } = props
   return (
-    <Button onClick={deleteRestaurant} style={{float:'right', marginRight: '15px'}}>
+    <Button onClick={handleClick}>
       <Delete className="delete"/>
     </Button>
   )
