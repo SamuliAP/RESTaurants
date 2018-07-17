@@ -9,7 +9,6 @@ import {
 
 const initialState = {
   fetching: false,
-  user: null,
   users: [],
   errors: []
 }
@@ -20,7 +19,7 @@ export default (state = initialState, action) => {
     case CREATE_USER: return { ...state, fetching: true, errors: [] };
     case FETCH_USERS_SUCCESS: return { ...state, fetching: false, users: action.payload };
     case FETCH_USERS_FAILURE: return { ...state, fetching: false, errors: action.errors };
-    case CREATE_USER_SUCCESS: return { ...state, fetching: false, user: action.payload };
+    case CREATE_USER_SUCCESS: return { ...state, fetching: false, users: [ ...(state.users), action.payload ] };
     case CREATE_USER_FAILURE: return { ...state, fetching: false, errors: action.errors };
     default: return state
   }

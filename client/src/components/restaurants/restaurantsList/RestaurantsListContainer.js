@@ -7,12 +7,11 @@ import RestaurantsList from './RestaurantsList'
 
 export class RestaurantsListContainer extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.fetchRestaurants()
   }
   render() {
-    console.log(this.props)
-    return <RestaurantsList />
+    return <RestaurantsList restaurants={this.props.restaurants} />
   }
 }
 

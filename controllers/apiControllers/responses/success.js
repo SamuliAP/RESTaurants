@@ -27,9 +27,5 @@ exports.create = (req, res, next, type, successObject = {status: "success"}) => 
   }
   res.locals.success = true
 
-  // refresh session on success
-  if(req.session) {
-    req.session.touch()
-  }
   next()
 }

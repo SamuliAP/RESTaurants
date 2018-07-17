@@ -1,21 +1,25 @@
 import React from 'react'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 
+import CommentsContainer from '../comments/CommentsContainer'
+
 const RestaurantsListRow = props => {
 
-  const { title } = props
+  const { name, address, id } = props
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography >{title}</Typography>
+        <div className="list-column">
+          {name}
+        </div>
+        <div className="list-column">
+          <Typography>{address}</Typography>
+        </div>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        asd
-      </ExpansionPanelDetails>
+      <CommentsContainer restaurant={id}/>
     </ExpansionPanel>
   )
 }

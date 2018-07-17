@@ -3,8 +3,8 @@ const { error, success } = require('./responses')
 const bcrypt             = require('bcryptjs')
 
 exports.getSession = (req, res, next) => {
-  // this has already passed authentication, so we'll just return success
-  return success.create(req, res, next, success.type.OK)
+  // this has already passed authentication, so we'll just return success with session
+  return success.create(req, res, next, success.type.OK, req.session && req.session.user)
 }
 
 // create session
@@ -39,7 +39,7 @@ exports.createSession = (req, res, next) => {
       }
       req.session.authenticated = true
       req.session.user = user
-      return success.create(req, res, next, success.type.OK)
+      return success.create(req, res, next, success.type.OK, req.session && req.session.user)
     })
   })
 }

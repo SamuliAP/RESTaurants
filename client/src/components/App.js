@@ -26,7 +26,7 @@ class App extends Component {
       <div className="app">
         <Header auth={this.props.authenticated} toProfilePage={this.navigate} logout={this.logout} />
         <div className="content">
-          {this.state.view === "restaurants" &&
+          {this.state.view === "restaurants" && this.props.authenticated && 
             <RestaurantsListContainer />
           }
         </div>

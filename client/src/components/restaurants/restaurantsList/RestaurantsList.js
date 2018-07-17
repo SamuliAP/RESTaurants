@@ -1,14 +1,20 @@
 import React from 'react';
 
-
 import RestaurantsListRow from './RestaurantsListRow'
 import '../../../assets/css/restaurants.css'
 
 const SimpleExpansionPanel = props => {
+  const { restaurants } = props
   return (
     <div className="restaurants-list">
-      <RestaurantsListRow title="hellurei" />
-      <RestaurantsListRow title="hellurei" />
+      {restaurants.map((restaurant) => 
+        <RestaurantsListRow 
+          key={restaurant.id}
+          name={restaurant.name}
+          address={restaurant.address}
+          id={restaurant.id}
+        />
+      )}
     </div>
   );
 }

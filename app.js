@@ -51,6 +51,7 @@ let sess = {
   secret: 'extremely 9aYN9Alkjl secretive kkjfang665 secret J34KkMM',
   resave: false,
   saveUninitialized: true,
+  rolling: true,
   cookie: {
     maxAge: 1800000 // 30 minutes
   }
