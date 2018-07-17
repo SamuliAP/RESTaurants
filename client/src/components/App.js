@@ -5,7 +5,7 @@ import { sessionActionCreators } from '../store/actions'
 
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import RestaurantsListContainer from './restaurants/restaurantsList/RestaurantsListContainer'
+import RestaurantsView from './views/RestaurantsView'
 
 class App extends Component {
 
@@ -27,7 +27,7 @@ class App extends Component {
         <Header auth={this.props.authenticated} toProfilePage={this.navigate} logout={this.logout} />
         <div className="content">
           {this.state.view === "restaurants" && this.props.authenticated && 
-            <RestaurantsListContainer />
+            <RestaurantsView user={this.props.user}/>
           }
         </div>
         <Footer />

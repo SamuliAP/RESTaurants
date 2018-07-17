@@ -3,6 +3,16 @@
   margin: 50px auto;
 }
 
+.restaurant-form {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.restaurant-form button {
+  margin-left: 320px;
+}
+
 .list-column {
   flex-basis: 30%;
 }

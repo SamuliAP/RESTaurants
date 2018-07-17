@@ -28,8 +28,6 @@ export class Comments extends Component {
   }
 
   deleteComment = id => this.props.deleteComment(id)
-    
-  
 
   getDeleteButton = (comment, user) => {
     if(comment.owner._id === user._id || user.role === 'admin') {
@@ -37,6 +35,7 @@ export class Comments extends Component {
     }
     return false
   }
+  
   render() {
     const { comments, restaurant, errors, user } = this.props
     return (
@@ -47,7 +46,7 @@ export class Comments extends Component {
               <div key={comment.id}>
                 <Divider/>
                 <ExpansionPanelDetails className="flex-grid">
-                <div className="col-11" style={{display: 'inline-flex'}}>
+                <div className="col-10" style={{display: 'inline-flex'}}>
                   <Typography style={{padding: '0 10px'}} variant="subheading" >{comment.owner.email}</Typography> | 
                   <Typography style={{marginTop:"2px",padding: '0 10px'}}>
                     {new Date(comment.updatedAt).toLocaleDateString()}
@@ -56,7 +55,7 @@ export class Comments extends Component {
                     {new Date(comment.updatedAt).toLocaleTimeString()}
                   </Typography>
                 </div>
-                <div className="col-1">
+                <div className="col-2">
                 {this.getDeleteButton(comment, user) && <DeleteCommentButton comment={comment.id} deleteComment={this.deleteComment}/>}
                 </div>
                 <Typography className="col-12" style={{wordWrap:'break-word', width: "100%", marginLeft:"11px"}}>{comment.comment}</Typography>

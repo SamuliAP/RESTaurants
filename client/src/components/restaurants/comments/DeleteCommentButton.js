@@ -9,7 +9,7 @@ const DeleteCommentButton = props => {
 
   return (
     <div>
-      <Button onClick={deleteComment}>
+      <Button style={{float:"right"}} onClick={deleteComment}>
         <Delete/>
       </Button> 
     </div>
