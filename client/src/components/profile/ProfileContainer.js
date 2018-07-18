@@ -22,8 +22,16 @@ export class ProfileContainer extends Component {
   }
 
   updateCurrentUser = candidate => {
-    let currentUser = this.props.users.reduce((acc, user) => user._id === candidate._id ? user : acc )
-    this.setState({ currentUser })
+    if(this.props.users.length > 0) {
+      let currentUser = this.props.users.reduce((acc, user) => user._id === candidate._id ? user : acc )
+      if(!currentUser || currentUser._id !== candidate._id) {
+        this.setState({ currentUser: this.props.authUser })  
+      } else {
+        this.setState({ currentUser })
+      }
+    } else {
+      this.setState({ currentUser: this.props.authUser })
+    }
   }
 
   updateUserEmail    = (body, id) => this.props.actions.updateUserEmail({body}, id)
@@ -54,7 +62,8 @@ export class ProfileContainer extends Component {
             updateUserPassword={this.updateUserPassword}
             emailErrors={this.props.emailErrors} 
             passwordErrors={this.props.passwordErrors} 
-            roleErrors={this.props.roleErrors} 
+            roleErrors={this.props.roleErrors}
+            errors={this.props.errors}
             fetching={this.props.fetching}
             />
           {authUser.role === 'admin' && 

@@ -82,7 +82,7 @@ class RestaurantsListRow extends React.Component {
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
 
   showActionButton = () => {
-    if(this.props.user.role === 'admin' || this.props.owner === this.props.user._id) {
+    if(this.props.user.role === 'admin' || (this.props.owner === this.props.user._id && this.props.user.role === 'manager')) {
       return true
     }
     return false

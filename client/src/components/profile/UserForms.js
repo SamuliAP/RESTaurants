@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, TextField, Select, MenuItem, Typography } from '@material-ui/core'
+import { Button, TextField, Select, MenuItem, Typography, Snackbar } from '@material-ui/core'
 
 import UserForm from './UserForm'
 
@@ -13,8 +13,12 @@ class UserForms extends React.Component {
       password2: '',
       role: this.props.currentUser.role,
       passMatch: true,
+      deleteSubmitted: false,
+      snackbarOpen: false
     }
   }
+
+  handleSnackbarClose = () => this.setState({ snackbarOpen: false })
 
   componentDidUpdate(prevProps, prevState) { 
     if(this.props.currentUser._id !== prevProps.currentUser._id) {
@@ -63,6 +67,14 @@ class UserForms extends React.Component {
         role: newRole
       })
     }
+    if(!this.props.fetching 
+      && prevProps.fetching 
+      && this.state.deleteSubmitted
+      && this.props.errors.length === 0
+      && this.state.role !== ''
+    ) {
+      this.setState({ snackbarOpen: true, deleteSubmitted: false })
+    }
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -95,7 +107,9 @@ class UserForms extends React.Component {
   }
 
   deleteUser = () => {
-    this.props.deleteUser(this.props.currentUser._id)
+    this.setState({
+      deleteSubmitted: true
+    }, () => this.props.deleteUser(this.props.currentUser._id))
   }
 
   render(){
@@ -153,6 +167,16 @@ class UserForms extends React.Component {
 
     return (
       <div className="col-6">
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={this.state.snackbarOpen}
+          onClose={this.handleSnackbarClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          autoHideDuration={3000}
+          message={<span id="message-id">User Deleted</span>}
+        />
         { this.props.authUser.role === 'admin' &&
           <UserForm
             errors={this.props.roleErrors || []}

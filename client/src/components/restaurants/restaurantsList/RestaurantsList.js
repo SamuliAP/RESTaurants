@@ -34,7 +34,7 @@ const RestaurantsList = props => {
           <p> Yeah it's just a crude draft but he definitely exists, so go create those restaurants already you heartless monster.</p>
         </div>
       }
-      {restaurants.length > 0 && !fetching &&
+      {restaurants.length > 0 &&
       <div>
         <RestaurantsListHeader />
         {restaurants.map((restaurant) => 
