@@ -9,3 +9,4 @@ views served from /, react client served from /client
 stack: node/mongo/hbs/react
 encrypted with basic auth
 view in full width, ran out of time for mobile friendlyness
+front controller pattern in api

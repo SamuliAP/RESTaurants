@@ -10,8 +10,9 @@ const express          = require('express'),
       bodyParser       = require('body-parser'),
       expressSanitizer = require('express-sanitizer'),
       session          = require('express-session'),
-      csurf            = require('csurf')
-      cors             = require('cors')
+      csurf            = require('csurf'),
+      cors             = require('cors'),
+      cookieParser     = require('cookie-parser')
 
 // ------------------------------------
 // Internal modules
@@ -66,7 +67,8 @@ if (process.env.NODE_ENV === 'production' ) {
 app.use(session(sess))
 
 // csrf-protection
-app.use(csurf())
+app.use(cookieParser())
+app.use(csurf({ cookie: true }))
 
 // use cors for development environments, because react development server is ran in a different port
 if(process.env.NODE_ENV === 'development') {
@@ -87,7 +89,8 @@ app.use(noSqlMiddleware.sanitizeBody)
 // App routes, registered in order of the routes -array
 // ------------------------------------
 
-// catch errors caused by application middelware before routes
+// catch errors caused by application middelware before routes,
+// these are sent / rendered in the main route stacks
 app.use((err, req, res, next) => {
 
   // unknown error, respond with server error
@@ -101,7 +104,10 @@ app.use((err, req, res, next) => {
   })
 })
 
+// serve react client
 app.use(express.static(__dirname + '/client/build'));
+
+// routes
 app.use(routes)
 
 // ------------------------------------

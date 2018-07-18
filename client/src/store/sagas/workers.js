@@ -8,6 +8,9 @@ export function* apiWorker(request, success, failure, params) {
     params && params.id
   )
   const responseData = yield response.json()
+  if(responseData._csrfToken) {
+    sessionStorage.setItem("_csrf", responseData._csrfToken)
+  }
 
   if(responseData.errors) {
     yield put({ type: failure, errors: responseData.errors })

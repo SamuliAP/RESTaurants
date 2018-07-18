@@ -10,15 +10,14 @@ const dispatchRequest = method => (uri, options = {}) => {
   options = {...options, method: method}
 
   // send cookies
-  options.credentials = 'include'
+  options.credentials = 'same-origin'
 
-  // set content-type -header
-  options.headers = {...(options.headers), 'content-type': 'application/json'}
-
-  // get authentication token from sessionstorage if it's not explicitly set
-  let authToken = sessionStorage.getItem("auth")
-  if(authToken && !options.headers.authorization) {
-    options.headers.authorization = authToken
+  // set content-type and csrf-headers
+  let _csrf = sessionStorage.getItem('_csrf')
+  options.headers = {
+    ...(options.headers), 
+    'content-type': 'application/json',
+    "CSRF-TOKEN": _csrf
   }
 
   // stringify body object

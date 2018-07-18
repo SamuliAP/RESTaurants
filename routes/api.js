@@ -15,7 +15,7 @@ const notFound = (req,res,next) => {
   next()
 }
 
-// check for errors created before the main route stack
+// check for errors created before the main route stack (mainly for csrf-token errors)
 const errorCheck = (req, res, next) => {
 
   if(res.locals.success === false) {
@@ -25,7 +25,7 @@ const errorCheck = (req, res, next) => {
 }
 
 // the API route stack, meant for sending responses trough HTTP
-// router.use('/', errorCheck) TODO: csrf checkille jotain
+router.use('/', errorCheck)
 router.use('/', routes)
 router.use('/', notFound)
 

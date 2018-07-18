@@ -1,7 +1,9 @@
 module.exports = (req, res, next) => {
-  // TODO POISTA TÄMÄ
-  res.set({
-    'Access-Control-Allow-Origin': 'http://localhost:3001',
-    'Access-Control-Allow-Credentials':true,
-  }).status(res.locals.response.code).send(res.locals.response.message)
+  let message = res.locals.response.message
+  let code    = res.locals.response.code
+  
+  // include csrf-token in response body
+  message._csrfToken = req.csrfToken()
+
+  res.status(code).send(message)
 }

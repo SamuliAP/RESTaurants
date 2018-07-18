@@ -27,7 +27,7 @@ const forceLogin = (req, res, next) => {
   next()
 }
 
-// check for errors created before the main route stack
+// check for errors created before the main route stack (mainly for csrf-tokens)
 const errorCheck = (req, res, next) => {
 
   if(res.locals.success === false) {
