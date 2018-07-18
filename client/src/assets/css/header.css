@@ -2,6 +2,10 @@
   flex-grow: 1;
 }
 
+.header {
+  background-color: #5e35b1 !important;
+}
+
 .header-content {
   display: inline-block;
   color: whitesmoke !important;

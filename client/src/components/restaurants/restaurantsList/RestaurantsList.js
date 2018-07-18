@@ -36,7 +36,7 @@ const RestaurantsList = props => {
       }
       {restaurants.length > 0 &&
       <div>
-        <RestaurantsListHeader />
+        <RestaurantsListHeader user={user} />
         {restaurants.map((restaurant) => 
           <RestaurantsListRow 
             saveEditName={saveEditName}

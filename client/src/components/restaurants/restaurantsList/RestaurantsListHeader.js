@@ -3,7 +3,8 @@ import { Typography } from '@material-ui/core';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
-const RestaurantsListHeader = () => {
+const RestaurantsListHeader = props => {
+  const { user } = props
   return (
     <ExpansionPanel expanded={false}>
       <ExpansionPanelSummary>
@@ -14,7 +15,9 @@ const RestaurantsListHeader = () => {
           <Typography> Address </Typography>
         </div>
         <div className="list-header-action-column">
-          <Typography> Delete </Typography>
+          {(user.role === 'admin' || user.role === 'manager') && 
+            <Typography> Delete </Typography>
+          }
         </div>
       </ExpansionPanelSummary>
     </ExpansionPanel>
