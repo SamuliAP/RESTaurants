@@ -43,7 +43,7 @@ export class Comments extends Component {
         {comments.map(comment => 
           comment.restaurant === restaurant
             ? <Comment 
-                key={comment.id} 
+                key={comment._id} 
                 deleteComment={this.deleteComment} 
                 comment={comment} 
                 user={user}

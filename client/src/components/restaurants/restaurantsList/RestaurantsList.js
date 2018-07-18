@@ -43,11 +43,11 @@ const RestaurantsList = props => {
             fetchingDelete={fetchingDelete}
             fetching={fetching}
             saveEditAddress={saveEditAddress}
-            key={restaurant.id}
+            key={restaurant._id}
             name={restaurant.name}
             address={restaurant.address}
             owner={restaurant.owner}
-            id={restaurant.id}
+            id={restaurant._id}
             deleteRestaurant={deleteRestaurant}
             user={user}
             nameErrors={nameErrors}

@@ -65,7 +65,7 @@ class Comment extends React.Component {
               <Edit /> 
             </Button>
           }
-          {this.getActionButton(comment, user) && <DeleteCommentButton comment={comment.id} deleteComment={deleteComment}/>}
+          {this.getActionButton(comment, user) && <DeleteCommentButton comment={comment._id} deleteComment={deleteComment}/>}
         </div>
         {!this.state.editingComment && 
           <Typography className="col-8" style={{whiteSpace:'pre-wrap', wordWrap:'break-word', width: "100%", marginLeft:"11px"}}>{comment.comment}</Typography>
