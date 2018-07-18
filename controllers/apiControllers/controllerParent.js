@@ -20,7 +20,7 @@ exports.findAll = (Model, queryParams = {}) => (req, res, next) => {
     if(err)              { return error.create(req, res, next, error.type.MONGOOSE, err) } 
     else if(!data || 
       data.length === 0) { return error.create(req, res, next, error.type.NOTFOUND) } 
-    else                 { return success.create(req, res, next, success.type.OK, data) }
+    else                 { return success.create(req, res, next, success.type.OK, data._doc) }
   })
 }
 
@@ -29,7 +29,7 @@ exports.findById = Model => (req, res, next) => {
   Model.findById(req.params.id, (err, data) => {
     if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) } 
     else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
-    else           { return success.create(req, res, next, success.type.OK, data) }
+    else           { return success.create(req, res, next, success.type.OK, data._doc) }
   })
 }
 
@@ -50,7 +50,7 @@ exports.create = (Model, props = {}) => (req, res, next) => {
     if(err)              { return error.create(req, res, next, error.type.MONGOOSE, err) }
     else if(!data || 
       data.length === 0) { return error.create(req, res, next, error.type.SERVER) }  
-    else                 { return success.create(req, res, next, success.type.CREATED, data) }
+    else                 { return success.create(req, res, next, success.type.CREATED, data._doc) }
   })
 }
 
@@ -74,7 +74,7 @@ exports.update = (Model, props = {}) => (req, res, next) => {
   }, (err, data) => {
     if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) }
     else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
-    else           { return success.create(req, res, next, success.type.OK, data) }
+    else           { return success.create(req, res, next, success.type.OK, data._doc) }
   })
 }
 
@@ -83,6 +83,6 @@ exports.delete = Model => (req, res, next) => {
   Model.findByIdAndRemove(req.params.id, (err, data) => {
     if(err)        { return error.create(req, res, next, error.type.MONGOOSE, err) }
     else if(!data) { return error.create(req, res, next, error.type.NOTFOUND) } 
-    else           { return success.create(req, res, next, success.type.OK, data) }
+    else           { return success.create(req, res, next, success.type.OK, data._doc) }
   })
 }
