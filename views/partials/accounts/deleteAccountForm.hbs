@@ -4,7 +4,7 @@
     <h6>This will also permanently delete restaurants and comments made by this account</h6>
     <p>( GDPR Ahoy! )</p>
   </label>
-  <form class="col s12" action="/users/{{data.id}}/delete" method="POST">
+  <form class="col s12" action="/users/{{data._id}}/delete" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="row">
       <div class="input-field">

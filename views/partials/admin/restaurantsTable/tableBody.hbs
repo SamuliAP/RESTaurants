@@ -1,5 +1,12 @@
 <tbody>
   {{#each data}}
-    {{>admin/restaurantsTable/tableRow}}
+    {{>admin/restaurantsTable/tableRow
+      this=this
+      _id=_id
+      name=name
+      address=address
+      owner=owner 
+      user=../user
+      csrfToken=../csrfToken}}
   {{/each}}
 </tbody>

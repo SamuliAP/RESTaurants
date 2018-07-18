@@ -20,7 +20,7 @@ exports.findAll = (Model, queryParams = {}) => (req, res, next) => {
     if(err)              { return error.create(req, res, next, error.type.MONGOOSE, err) } 
     else if(!data || 
       data.length === 0) { return error.create(req, res, next, error.type.NOTFOUND) } 
-    else                 { return success.create(req, res, next, success.type.OK, data._doc) }
+    else                 { return success.create(req, res, next, success.type.OK, data) }
   })
 }
 

@@ -2,7 +2,7 @@
   <label>
     <h4>Update User Role</h4>
   </label>
-  <form class="col s12" action="/users/{{data.id}}/role" method="POST">
+  <form class="col s12" action="/users/{{data._id}}/role" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="row">
       <div class="col s2">
