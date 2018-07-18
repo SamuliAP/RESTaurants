@@ -14,7 +14,10 @@ exports.initialize = (app) => {
   
   // hbs helpers
   hbs.registerHelper('formatDate', function(date) {
-    return date.toLocaleString()
+    if(date && date instanceof Date) {
+      return date.toLocaleString()
+    } 
+    return ""
   })
 
   hbs.registerHelper('ifEquals', function(item1, item2, options) {
