@@ -8,7 +8,7 @@ module.exports = (req, res, next) =>
   res.render(res.locals.view, {
     
     // response data
-    ...(res.locals.response && res.locals.response.message),
+    data: {...(res.locals.response && res.locals.response.message)},
     
     // additional render parameters
     ...res.locals.renderParams,

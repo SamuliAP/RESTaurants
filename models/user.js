@@ -74,7 +74,7 @@ userSchema.pre('findOneAndRemove', function(next) {
   const Comment = mongoose.model('Comment');
   var self = this
   Restaurant.deleteMany({ owner: self._conditions._id }, () => { 
-    Comment.deleteMany({ owner: self._conditions._id }, next)
+    Comment.deleteMany({ 'owner._id': self._conditions._id }, next)
    })
 })
 

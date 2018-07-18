@@ -10,9 +10,12 @@ import {
   CREATE_COMMENT_SUCCESS,
   DELETE_COMMENT,
   DELETE_COMMENT_FAILURE,
-  DELETE_COMMENT_SUCCESS
+  DELETE_COMMENT_SUCCESS,
+  UPDATE_COMMENT,
+  UPDATE_COMMENT_FAILURE,
+  UPDATE_COMMENT_SUCCESS
 } from '../actionTypes'
-import { getComments, createComment, deleteComment } from '../../api'
+import { getComments, createComment, deleteComment, updateComment } from '../../api'
 
 // watchers
 export function* watchComments() {
@@ -36,6 +39,13 @@ export function* watchComments() {
       deleteComment, 
       DELETE_COMMENT_SUCCESS, 
       DELETE_COMMENT_FAILURE
+    ),
+
+    takeLatest(UPDATE_COMMENT, 
+      apiWorker, 
+      updateComment, 
+      UPDATE_COMMENT_SUCCESS, 
+      UPDATE_COMMENT_FAILURE
     ),
   ])
 }

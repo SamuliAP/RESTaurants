@@ -1,11 +1,27 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
 
-const Logo = () => {
+const Logo = props => {
+
+  const toRestaurantsPage = () => {
+    props.toRestaurantsPage()
+    return false
+  } 
   return (
-    <Typography className="logo" variant="title" color="inherit">
-      RESTaurants
-    </Typography>
+    <div className="logo">
+      <Typography 
+        onClick={toRestaurantsPage} 
+        style={{
+          width: '130px',
+          padding: '20px',
+          cursor: 'pointer'
+        }} 
+        variant="title" 
+        color="inherit"
+      >
+        RESTaurants
+      </Typography>
+    </div>
   )
 }
 

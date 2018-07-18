@@ -41,6 +41,7 @@ const UserDialog = props => {
             fullWidth
             margin="normal"
             onChange={handleInputChange}
+            error={errors.length > 0}
           />
         </DialogContent>
         <DialogContent className="dialog-content">
@@ -51,6 +52,7 @@ const UserDialog = props => {
             fullWidth
             margin="dense"
             onChange={handleInputChange}
+            error={errors.length > 0}
           />
         </DialogContent>
         <DialogActions>

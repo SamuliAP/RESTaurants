@@ -9,14 +9,14 @@ import LoginContainer from './login/loginContainer'
 import '../../assets/css/header.css'
 
 const Header = props => {
-  const { auth, toProfilePage, logout } = props
+  const { auth, fetching, toProfilePage, toRestaurantsPage, logout } = props
   return (
     <div className="header">
       <AppBar position="static">
         <Toolbar>
-          <Logo />
-          {auth && <UserButton toProfilePage={toProfilePage} logout={logout} />}
-          {!auth && 
+          <Logo toRestaurantsPage={toRestaurantsPage} />
+          {auth && !fetching && <UserButton toProfilePage={toProfilePage} logout={logout} />}
+          {!auth && !fetching && 
             <div>
               <CreateUserContainer /> 
               <LoginContainer />

@@ -10,7 +10,7 @@ exports.validateEmail = (req,res,next) => {
 
   if(!validator.isEmail(req.body.email)) {
     return error.create(req, res, next, error.type.REQUEST, {
-      "message" : req.body.email + "is not a valid email address"
+      "message" : req.body.email + " is not a valid email address"
     })
   }
 

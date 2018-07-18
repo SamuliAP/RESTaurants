@@ -13,6 +13,7 @@ export class CommentsContainer extends Component {
 
   postComment = body => this.props.actions.createComment({body})
   deleteComment = id => this.props.actions.deleteComment(id)
+  updateComment = (body, id) => this.props.actions.updateComment({body}, id)
   
   render() {
     const { comments, restaurant, errors, user } = this.props
@@ -22,6 +23,7 @@ export class CommentsContainer extends Component {
       errors={errors}
       postComment={this.postComment}
       deleteComment={this.deleteComment}
+      updateComment={this.updateComment}
       user={user}
     />
   }

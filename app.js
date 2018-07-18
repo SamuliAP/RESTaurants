@@ -36,7 +36,6 @@ hbs.initialize(app)
 
 // serve assets for views
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/client/build'));
 
 // ------------------------------------
 // Application level middleware
@@ -102,6 +101,7 @@ app.use((err, req, res, next) => {
   })
 })
 
+app.use(express.static(__dirname + '/client/build'));
 app.use(routes)
 
 // ------------------------------------

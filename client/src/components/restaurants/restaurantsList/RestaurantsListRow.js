@@ -7,46 +7,76 @@ import Typography from '@material-ui/core/Typography';
 import CommentsContainer from '../comments/CommentsContainer'
 import DeleteRestaurantButton from './DeleteRestaurantButton'
 import EditRestaurantButton from './EditRestaurantButton'
-import { TextField, Button, ExpansionPanelActions, ExpansionPanelDetails, Divider } from '@material-ui/core';
+import { TextField, Button, ExpansionPanelActions, ExpansionPanelDetails } from '@material-ui/core';
+import Errors from '../../common/Errors';
 
 class RestaurantsListRow extends React.Component {
 
-  state = {
-    expanded: false,
-    newName: this.props.name,
-    newAddress: this.props.address,
-    editName: false,
-    editAddress: false
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      expanded: false,
+      newName: this.props.name,
+      newAddress: this.props.address,
+      editName: false,
+      editAddress: false,
+      comments: false,
+    }
   }
+
+  componentDidUpdate(prevProps, prevState) {  
+    if(this.state.submitted 
+      && !this.props.fetching 
+      && prevProps.fetching 
+      && this.props.nameErrors.length === 0
+      && this.props.addressErrors.length === 0
+    ) {
+      this.setState({ 
+        expanded: false, 
+        submitted: false,
+        editName: false,
+        editAddress: false,
+        comments: false
+      })
+    }
+  }
+
+  handleCancel = () => this.setState({ 
+    expanded: false, 
+    submitted: false,
+    editName: false,
+    editAddress: false,
+    comments: false
+  })
 
   deleteRestaurant = () => this.props.deleteRestaurant(this.props.id)
+  
   saveEditName = () => {
-    this.props.saveEditName({
+    this.setState({
+      submitted: true
+    }, () => this.props.saveEditName({
       name: this.state.newName
-    }, this.props.id )
-    this.handleExpand()
+    }, this.props.id ))
   }
   saveEditAddress = () => {
-    this.props.saveEditAddress({
+    this.setState({
+      submitted: true
+    }, () => this.props.saveEditAddress({
       address: this.state.newAddress
-    }, this.props.id )
-    this.handleExpand()
+    }, this.props.id ))
   }
 
-  initEditName = () => this.setState({ editName:true })
-  initEditAddress = () => this.setState({ editAddress:true })
+  initEditName = () => this.setState({ editName:true, comments:false })
+  initEditAddress = () => this.setState({ editAddress:true, comments:false })
 
   handleExpand = () => {
     this.setState(state => ({
-      expanded: !state.expanded
-    }), () => setTimeout( () => this.setState(state => {
-      if(!state.expanded) {
-        return {
-          editName: false,
-          editAddress: false
-        }
-      } else return state
-    }), 400))
+      expanded    : !state.expanded,
+      comments    : !state.expanded && !state.editAddress && !state.editName,
+      editName    : !state.expanded ? state.editName : false,
+      editAddress : !state.expanded ? state.editAddress : false,
+    }))
   }
 
   handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -59,23 +89,24 @@ class RestaurantsListRow extends React.Component {
   }
 
   render() {
-    const { id, name, address } = this.props
+    const { id, name, address, fetchingDelete, nameErrors, addressErrors } = this.props
     const { 
       editName, 
       editAddress, 
       newName,
       newAddress,
-      expanded
+      expanded,
+      comments
     } = this.state
 
     return (
-      <ExpansionPanel expanded={expanded} onChange={this.handleExpand}>
+      <ExpansionPanel expanded={expanded && !fetchingDelete} onChange={this.handleExpand}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className="list-column">
             {name}
           </div>
           <div className="list-edit-column">
-            {this.showActionButton() && !editName && !editAddress &&
+            {this.showActionButton() && !editName && !editAddress && !comments &&
               <EditRestaurantButton handleClick={this.initEditName} />
             }
           </div>
@@ -84,19 +115,19 @@ class RestaurantsListRow extends React.Component {
             <Typography>{address}</Typography>
           </div>
           <div className="list-edit-column">
-            {this.showActionButton() && !editName && !editAddress &&
+            {this.showActionButton() && !editName && !editAddress && !comments && 
               <EditRestaurantButton handleClick={this.initEditAddress} />
             }
           </div>
           
-          {this.showActionButton() && 
-            <div className="list-action-column">
+          <div className="list-action-column">
+            {this.showActionButton() && 
               <DeleteRestaurantButton handleClick={this.deleteRestaurant} />
-            </div>
-          }
+            }
+          </div>
         </ExpansionPanelSummary>
 
-        { !editName && !editAddress &&
+        { !editName && !editAddress && comments && 
           <CommentsContainer restaurant={id}/>
         }
 
@@ -105,6 +136,11 @@ class RestaurantsListRow extends React.Component {
             <ExpansionPanelDetails>
               <Typography variant="display1"> Edit name </Typography>
             </ExpansionPanelDetails>
+            {nameErrors && nameErrors.length > 0 && 
+              <ExpansionPanelDetails>
+                <Errors errors={nameErrors} />
+              </ExpansionPanelDetails>
+            }
             <ExpansionPanelDetails>
               <TextField
 
@@ -117,7 +153,7 @@ class RestaurantsListRow extends React.Component {
               />
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
-              <Button size="small" onClick={this.handleExpand}>Cancel</Button>
+              <Button size="small" onClick={this.handleCancel}>Cancel</Button>
               <Button size="small" color="primary" onClick={this.saveEditName}>
                 Save
               </Button>
@@ -130,6 +166,11 @@ class RestaurantsListRow extends React.Component {
             <ExpansionPanelDetails>
               <Typography variant="display1"> Edit Address </Typography>
             </ExpansionPanelDetails>
+            {addressErrors && addressErrors.length > 0 && 
+              <ExpansionPanelDetails>
+                <Errors errors={addressErrors} />
+              </ExpansionPanelDetails>
+            }
             <ExpansionPanelDetails>
               <TextField
                 label="New Address"
@@ -141,7 +182,7 @@ class RestaurantsListRow extends React.Component {
               />
             </ExpansionPanelDetails>
             <ExpansionPanelActions>
-              <Button size="small" onClick={this.handleExpand}>Cancel</Button>
+              <Button size="small" onClick={this.handleCancel}>Cancel</Button>
               <Button size="small" color="primary" onClick={this.saveEditAddress}>
                 Save
               </Button>

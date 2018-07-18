@@ -12,12 +12,18 @@ exports.createSession = (req, res, next) => {
 
   // handle basic authentication decoding
   let authHeader = req.headers.authorization
-  if (authHeader === undefined) {
+  let authPlaceholder = req.body.auth
+  if (authHeader === undefined && authPlaceholder === undefined) {
     res.header('WWW-Authenticate', 'Basic realm="Authorization required"');
     return error.create(req, res, next, error.type.UNAUTHORIZED)
   }
+  let encoded = ''
+  if(authHeader) {
+    encoded  = authHeader.split(' ')[1]  
+  } else {
+    encoded  = authPlaceholder.split(' ')[1]
+  }
   
-  let encoded  = authHeader.split(' ')[1]
   let decoded  = new Buffer(encoded, 'base64').toString()
   let email    = decoded.split(':')[0]
   let password = decoded.split(':')[1]

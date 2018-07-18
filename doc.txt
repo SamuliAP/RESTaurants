@@ -5,3 +5,7 @@ saga overkill but treated as a learning exercise (for work)
 no boilerplates used
 container/component aka smart/dumb component aka container/presentational component architecture
 remember to enable cookies in browser
+views served from /, react client served from /client
+stack: node/mongo/hbs/react
+encrypted with basic auth
+view in full width, ran out of time for mobile friendlyness

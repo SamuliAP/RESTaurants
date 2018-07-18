@@ -17,14 +17,23 @@ export class RestaurantsListContainer extends Component {
   saveEditAddress = (body, id) => this.props.actions.updateRestaurantAddress({body}, id)
 
   render() {
-    return <RestaurantsList 
-      saveEditName={this.saveEditName}
-      saveEditAddress={this.saveEditAddress}
-      deleteRestaurant={this.deleteRestaurant} 
-      restaurants={this.props.restaurants} 
-      user={this.props.user}
-      errors={this.props.updateErrors}
-    />
+    return (
+      <div>
+        {this.props.restaurants.length > 0 && 
+          <RestaurantsList 
+            saveEditName={this.saveEditName}
+            saveEditAddress={this.saveEditAddress}
+            deleteRestaurant={this.deleteRestaurant} 
+            restaurants={this.props.restaurants} 
+            user={this.props.user}
+            nameErrors={this.props.nameErrors}
+            addressErrors={this.props.addressErrors}
+            fetchingDelete={this.props.fetchingDelete}
+            fetching={this.props.fetching}
+          />
+        }
+      </div>
+    )
   }
 }
 

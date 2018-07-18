@@ -5,11 +5,15 @@ import FlatButton from './FlatButton'
 
 class ButtonWithUserDialog extends Component {
 
-  state = {
-    dialogOpen: false,
-    submitted: true,
-    email: "",
-    password: ""
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      dialogOpen: false,
+      submitted: true,
+      email: "",
+      password: ""
+    }
   }
 
   handleClickDialogOpen = () => this.setState({ dialogOpen: true  });

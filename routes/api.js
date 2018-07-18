@@ -9,7 +9,7 @@ const routes = require('./routes')
 // 404 for catching not matched /api routes
 const notFound = (req,res,next) => {
   // create response only if one has not yet been created
-  if(res.locals.response === undefined) {
+  if(res.locals.response === undefined && req.originalUrl) {
     return error.create(req, res, next, error.type.NOTFOUND)
   }
   next()
@@ -25,7 +25,7 @@ const errorCheck = (req, res, next) => {
 }
 
 // the API route stack, meant for sending responses trough HTTP
-// router.use('/', errorCheck) TODO csrf checkille jotain
+// router.use('/', errorCheck) TODO: csrf checkille jotain
 router.use('/', routes)
 router.use('/', notFound)
 

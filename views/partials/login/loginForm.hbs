@@ -5,22 +5,32 @@
   </label>
   <form class="col s12" action="/session" method="POST">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="auth" id="auth-header-placeholder">
     <div class="row">
       <div class="input-field col s12">
-        <input name="email" type="text" class="validate">
+        <input id="login-email" name="email" type="text" class="validate">
         <label for="email">Email</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input name="password" type="password" class="validate">
+        <input id="login-password" name="password" type="password" class="validate">
         <label for="password">password</label>
       </div>
     </div>
     <div class="row">
-      <button class="btn btn-flat waves-effect waves-light" type="submit" name="action">Login
+      <button class="btn btn-flat waves-effect waves-light" onclick="return setBasicAuth()" type="submit" name="action">Login
         <i class="material-icons right">send</i>
       </button>
     </div>
   </form>
 </div>
+
+<script>
+  function setBasicAuth() {
+    let email = document.getElementById('login-email').value
+    let password = document.getElementById('login-password').value
+    document.getElementById('auth-header-placeholder').value = "Basic " + btoa(email + ':' + password)
+    return true;
+  } 
+</script>

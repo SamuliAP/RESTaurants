@@ -9,7 +9,7 @@ export class CreateRestaurantContainer extends Component {
   createRestaurant = body => this.props.actions.createRestaurant({ body })
   render() {
     return (
-      <CreateRestaurantForm errors={this.props.errors} createRestaurant={this.createRestaurant}/>
+      <CreateRestaurantForm fetching={this.props.fetching} errors={this.props.errors} createRestaurant={this.createRestaurant}/>
     )
   }
 }

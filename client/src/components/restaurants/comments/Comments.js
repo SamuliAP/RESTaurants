@@ -11,8 +11,12 @@ import '../../../assets/css/restaurants.css'
 
 export class Comments extends Component {
 
-  state = {
-    commentValue: ""
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      commentValue: ""
+    }
   }
 
   handleChange = (e) => this.setState({ commentValue: e.target.value })
@@ -30,7 +34,7 @@ export class Comments extends Component {
   deleteComment = id => this.props.deleteComment(id)
   
   render() {
-    const { comments, restaurant, errors, user } = this.props
+    const { comments, restaurant, errors, user, updateComment } = this.props
     return (
       <div>
         <ExpansionPanelDetails className="flex-grid">
@@ -38,7 +42,13 @@ export class Comments extends Component {
         </ExpansionPanelDetails>
         {comments.map(comment => 
           comment.restaurant === restaurant
-            ? <Comment key={comment.id} deleteComment={this.deleteComment} comment={comment} user={user} /> 
+            ? <Comment 
+                key={comment.id} 
+                deleteComment={this.deleteComment} 
+                comment={comment} 
+                user={user}
+                updateComment={updateComment} 
+              /> 
             : ""
         )}
         <Divider/>
@@ -55,7 +65,14 @@ export class Comments extends Component {
           />
           <div className="col-12"/>
           <div className="col-3"/>
-          <Button className="col-1" onClick={this.postComment} style={{width:"100px", height:"40px"}}>Post</Button> 
+          <Button
+            color="primary" 
+            className="col-1" 
+            onClick={this.postComment} 
+            style={{width:"100px", height:"40px"}}
+          >
+            Post
+          </Button> 
         </ExpansionPanelDetails>
       </div>
     )

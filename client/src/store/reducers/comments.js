@@ -7,7 +7,10 @@ import {
   CREATE_COMMENT_FAILURE,
   DELETE_COMMENT,
   DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAILURE
+  DELETE_COMMENT_FAILURE,
+  UPDATE_COMMENT,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAILURE
 } from '../actionTypes'
 
 const initialState = {
@@ -28,6 +31,16 @@ export default (state = initialState, action) => {
     case DELETE_COMMENT_FAILURE: return { ...state, fetching: false, errors: action.errors };
     case DELETE_COMMENT_SUCCESS: return { ...state, fetching: false, errors: [], comments: state.comments.filter(val => {
       return val._id !== action.payload._id
+    })};
+    case UPDATE_COMMENT: return { ...state, fetching: true, errors: [] };
+    case UPDATE_COMMENT_FAILURE: return { ...state, fetching: false, errors: action.errors };
+    case UPDATE_COMMENT_SUCCESS: return { ...state, fetching: false, errors: [], 
+      comments: state.comments.length === 0 ? [action.payload] : state.comments.map(val => {
+      if(val._id === action.payload._id) {
+        return action.payload
+      } else {
+        return val
+      }
     })};
     default: return state
   }

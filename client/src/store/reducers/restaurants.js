@@ -18,9 +18,11 @@ import {
 
 const initialState = {
   fetching: false,
+  fetchingDelete: false,
   restaurants: [],
   errors: [],
-  updateErrors: []
+  nameErrors: [],
+  addressErrors: []
 }
 
 export default (state = initialState, action) => {
@@ -31,29 +33,35 @@ export default (state = initialState, action) => {
     case CREATE_RESTAURANT: return { ...state, fetching: true, errors: [] };
     case CREATE_RESTAURANT_FAILURE: return { ...state, fetching: false, errors: action.errors };
     case CREATE_RESTAURANT_SUCCESS: return { ...state, fetching: false, errors: [], restaurants: [...state.restaurants, action.payload] };
-    case DELETE_RESTAURANT: return { ...state, fetching: true, errors: [] };
-    case DELETE_RESTAURANT_FAILURE: return { ...state, fetching: false, errors: action.errors };
-    case DELETE_RESTAURANT_SUCCESS: return { ...state, fetching: false, errors: [], restaurants: state.restaurants.filter(val => {
-      return val._id !== action.payload._id
-    })};
-    case UPDATE_RESTAURANT_NAME: return { ...state, fetching: true, errors: [] }
-    case UPDATE_RESTAURANT_NAME__SUCCESS: return { ...state, fetching: false, errors: [], restaurants: state.restaurants.map(val => {
-      if(val._id === action.payload._id) {
-        return action.payload
-      } else {
-        return val
-      }
-    })}
-    case UPDATE_RESTAURANT_NAME__FAILURE: return { ...state, fetching: false, updateErrors: action.errors }
-    case UPDATE_RESTAURANT_ADDRESS: return { ...state, fetching: true, errors: [] };
-    case UPDATE_RESTAURANT_ADDRESS__SUCCESS: return { ...state, fetching: false, errors: [], restaurants: state.restaurants.map(val => {
-      if(val._id === action.payload._id) {
-        return action.payload
-      } else {
-        return val
-      }
-    })}
-    case UPDATE_RESTAURANT_ADDRESS__FAILURE: return { ...state, fetching: false, updateErrors: action.errors };
+    case DELETE_RESTAURANT: return { ...state, fetchingDelete: true, errors: [] };
+    case DELETE_RESTAURANT_FAILURE: return { ...state, fetchingDelete: false, errors: action.errors };
+    case DELETE_RESTAURANT_SUCCESS: return { ...state, fetchingDelete: false, errors: [], 
+      restaurants: state.restaurants.length === 0 ? [action.payload] : state.restaurants.filter(val => {
+        return val._id !== action.payload._id
+      })
+    };
+    case UPDATE_RESTAURANT_NAME: return { ...state, fetching: true, nameErrors: [] }
+    case UPDATE_RESTAURANT_NAME__SUCCESS: return { ...state, fetching: false, 
+      restaurants: state.restaurants.length === 0 ? [action.payload] : state.restaurants.map(val => {
+        if(val._id === action.payload._id) {
+          return action.payload
+        } else {
+          return val
+        }
+      })
+    }
+    case UPDATE_RESTAURANT_NAME__FAILURE: return { ...state, fetching: false, nameErrors: action.errors }
+    case UPDATE_RESTAURANT_ADDRESS: return { ...state, fetching: true, addressErrors: [] };
+    case UPDATE_RESTAURANT_ADDRESS__SUCCESS: return { ...state, fetching: false, 
+      restaurants: state.restaurants.length === 0 ? [action.payload] : state.restaurants.map(val => {
+        if(val._id === action.payload._id) {
+          return action.payload
+        } else {
+          return val
+        }
+      })
+    }
+    case UPDATE_RESTAURANT_ADDRESS__FAILURE: return { ...state, fetching: false, addressErrors: action.errors };
     default: return state
   }
 }

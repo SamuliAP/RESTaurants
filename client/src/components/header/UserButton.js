@@ -5,9 +5,12 @@ import UserButtonMenu from './UserButtonMenu'
 
 export class UserButton extends Component {
 
-  state = {
-    anchorEl: null,
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      anchorEl: null
+    }
+  }
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
